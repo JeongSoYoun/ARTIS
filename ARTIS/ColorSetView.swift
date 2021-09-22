@@ -19,7 +19,7 @@ struct ColorSetView: View {
                     .padding()
 
                 Text("Backkground Color")
-                    .foregroundColor(Color.theme.background)
+                    .foregroundColor(Color.theme.subBackground)
                     .fontWeight(.bold)
                     .padding()
                 
