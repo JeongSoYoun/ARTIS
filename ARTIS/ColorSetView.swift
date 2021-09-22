@@ -24,12 +24,12 @@ struct ColorSetView: View {
                     .padding()
                 
                 Text("Sub Text")
-                    .foregroundColor(Color.theme.subText)
+                    .foregroundColor(Color.theme.SubText)
                     .fontWeight(.bold)
                     .padding()
                 
                 Text("Main Color")
-                    .foregroundColor(Color.theme.mainColor)
+                    .foregroundColor(Color.theme.MainColor)
                     .fontWeight(.bold)
                     .padding()
             }
