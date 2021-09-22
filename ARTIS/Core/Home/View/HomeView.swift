@@ -7,17 +7,20 @@ struct HomeView: View {
     
     var body: some View {
         
-        HStack {
+        ScrollView {
             
-            Text("인사이트")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            Spacer()
-            
-            alarmView(imageName: "bell")
+            HStack {
+                
+                Text("인사이트")
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                alarmView(imageName: "bell")
+            }
+            .padding()
         }
-        .padding(.horizontal)
     }
 }
 
