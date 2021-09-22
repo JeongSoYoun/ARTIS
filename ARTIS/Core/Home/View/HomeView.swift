@@ -9,17 +9,7 @@ struct HomeView: View {
         
         ScrollView {
             
-            HStack {
-                
-                Text("인사이트")
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                alarmView(imageName: "bell")
-            }
-            .padding()
+            headerView
         }
     }
 }
@@ -32,5 +22,23 @@ struct HomeView_Previews: PreviewProvider {
             HomeView()
                 .navigationBarHidden(true)
         }
+    }
+}
+
+extension HomeView {
+    
+    private var headerView: some View {
+        
+        HStack {
+            
+            Text("인사이트")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Spacer()
+            
+            alarmView(imageName: "bell")
+        }
+        .padding()
     }
 }
