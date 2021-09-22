@@ -15,8 +15,17 @@ struct ARTISApp: App {
             
             NavigationView {
                 
-                HomeView()
-                    .navigationBarHidden(true)
+                TabView {
+                 
+                    HomeView()
+                        .navigationBarHidden(true)
+                        .tabItem {
+                            
+                            Image(systemName: "eye")
+                            Text("INSIGHT")
+                        }
+                }
+                .accentColor(Color("myColor"))
             }
         }
     }
