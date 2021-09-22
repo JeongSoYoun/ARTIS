@@ -14,6 +14,8 @@
 		8547BB1426FB3A8700E051E2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8547BB1326FB3A8700E051E2 /* Color.swift */; };
 		8547BB1626FB3B6900E051E2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8547BB1526FB3B6900E051E2 /* HomeView.swift */; };
 		8547BB1826FB406D00E051E2 /* alarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8547BB1726FB406D00E051E2 /* alarmView.swift */; };
+		85AFD33726FB8C7A002895F3 /* ScreenBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AFD33626FB8C7A002895F3 /* ScreenBound.swift */; };
+		85AFD33926FB8EDF002895F3 /* ItemBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AFD33826FB8EDF002895F3 /* ItemBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		8547BB1326FB3A8700E051E2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		8547BB1526FB3B6900E051E2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8547BB1726FB406D00E051E2 /* alarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alarmView.swift; sourceTree = "<group>"; };
+		85AFD33626FB8C7A002895F3 /* ScreenBound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBound.swift; sourceTree = "<group>"; };
+		85AFD33826FB8EDF002895F3 /* ItemBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				8547BB1326FB3A8700E051E2 /* Color.swift */,
+				85AFD33626FB8C7A002895F3 /* ScreenBound.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				8547BB1726FB406D00E051E2 /* alarmView.swift */,
+				85AFD33826FB8EDF002895F3 /* ItemBarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 			files = (
 				8547BB0126FB3A4600E051E2 /* ColorSetView.swift in Sources */,
 				8547BB1826FB406D00E051E2 /* alarmView.swift in Sources */,
+				85AFD33926FB8EDF002895F3 /* ItemBarView.swift in Sources */,
+				85AFD33726FB8C7A002895F3 /* ScreenBound.swift in Sources */,
 				8547BB1626FB3B6900E051E2 /* HomeView.swift in Sources */,
 				8547BAFF26FB3A4600E051E2 /* ARTISApp.swift in Sources */,
 				8547BB1426FB3A8700E051E2 /* Color.swift in Sources */,
