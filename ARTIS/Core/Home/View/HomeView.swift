@@ -5,11 +5,19 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State var selectedItem: String = "발매 정보"
+    @Namespace var animation
+    
     var body: some View {
         
         ScrollView {
             
-            headerView
+            VStack {
+                
+                headerView
+                
+                itemBarView
+            }
         }
     }
 }
@@ -40,5 +48,23 @@ extension HomeView {
             alarmView(imageName: "bell")
         }
         .padding()
+    }
+    
+    private var itemBarView: some View {
+        
+        ZStack(alignment: .bottom) {
+            
+            HStack {
+                
+                ItemBarView(selectedItem: $selectedItem, item: "발매 정보", animation: animation)
+                ItemBarView(selectedItem: $selectedItem, item: "브랜드", animation: animation)
+                ItemBarView(selectedItem: $selectedItem, item: "전시회", animation: animation)
+            }
+            
+            Rectangle()
+                .fill(Color.theme.SubText.opacity(0.2))
+                .frame(height:2)
+        }
+        .padding(.horizontal)
     }
 }
