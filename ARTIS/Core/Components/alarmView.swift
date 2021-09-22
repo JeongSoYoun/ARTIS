@@ -11,7 +11,7 @@ struct alarmView: View {
             
             Image(systemName: imageName)
                 .font(.headline)
-                .frame(width:50, height: 50)
+                .frame(width:40, height: 40)
                 .background(
                 
                     Circle()
