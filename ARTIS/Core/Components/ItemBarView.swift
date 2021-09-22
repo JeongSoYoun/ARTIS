@@ -4,34 +4,49 @@ import SwiftUI
 struct ItemBarView: View {
     
     @Binding var selectedItem: String
-    let item: String
-//    var animation: Namespace.ID
+    var item: String
+    var animation: Namespace.ID
     
     var body: some View {
         
-        Button(action: {}) {
+        Button(action: {
             
-            Text(item)
-                .font(.subheadline)
-                .fontWeight(.bold)
-                .foregroundColor(Color.theme.accent)
+            withAnimation{selectedItem = item}
+        }) {
             
-            ZStack {
+            ZStack(alignment: .bottom) {
                 
-                Rectangle()
-                    .fill(selectedItem == item ? Color.theme.accent : Color.clear)
-                    .frame(height:2)
-//                    .matchedGeometryEffect(id: "ID", in: animation)
+                Text(item)
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(selectedItem == item ? Color.theme.accent : Color.theme.SubText)
+                    .padding(.bottom,10)
+                
+                ZStack {
+                    
+                    Rectangle()
+                        .fill(Color.clear)
+                        .frame(height:2)
+                    
+                    if selectedItem == item {
+                        
+                        Rectangle()
+                            .fill(Color.theme.accent)
+                            .frame(height: 2)
+                            .matchedGeometryEffect(id: "ID", in: animation)
+                    }
+
+                }
             }
         }
     }
 }
 
-struct ItemBarView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-        ItemBarView(selectedItem: .constant("발매 정보"), item: "발매 정보")
-            .previewLayout(.sizeThatFits)
-    }
-}
+//struct ItemBarView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//
+//        ItemBarView(selectedItem: .constant("발매 정보"), item: "발매 정보")
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
