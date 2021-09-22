@@ -10,13 +10,19 @@ struct HomeView: View {
     
     var body: some View {
         
-        ScrollView {
+        ZStack {
+         
+            Color.theme.background
+                .ignoresSafeArea()
             
-            VStack {
+            ScrollView {
                 
-                headerView
-                
-                itemBarView
+                VStack {
+                    
+                    headerView
+                    
+                    itemBarView
+                }
             }
         }
     }
@@ -40,7 +46,7 @@ extension HomeView {
         HStack {
             
             Text("인사이트")
-                .font(.title)
+                .font(.largeTitle)
                 .fontWeight(.bold)
             
             Spacer()
@@ -48,6 +54,7 @@ extension HomeView {
             alarmView(imageName: "bell")
         }
         .padding()
+        .padding(.top,20)
     }
     
     private var itemBarView: some View {
