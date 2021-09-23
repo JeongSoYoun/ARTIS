@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-struct MeagazineView: View {
+struct MegazineView: View {
     var body: some View {
         
         Text("Megazine View")
     }
 }
 
-struct MeagazineView_Previews: PreviewProvider {
+struct MegazineView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        MeagazineView()
+        
+        MegazineView()
     }
 }

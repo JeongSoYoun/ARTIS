@@ -9,22 +9,18 @@ struct HomeView: View {
     @Namespace var animation
     
     var body: some View {
-        
-        ZStack {
-         
-            Color.theme.background
-                .ignoresSafeArea()
+          
+        ScrollView {
             
-            ScrollView {
+            VStack {
                 
-                VStack {
-                    
-                    headerView
-                    
-                    itemBarView
-                }
+                headerView
+                
+                itemBarView
             }
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
     }
 }
 

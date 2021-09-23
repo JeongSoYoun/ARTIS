@@ -11,22 +11,10 @@ import SwiftUI
 struct ARTISApp: App {
     
     var body: some Scene {
+        
         WindowGroup {
             
-            NavigationView {
-                
-                TabView {
-                 
-                    HomeView()
-                        .navigationBarHidden(true)
-                        .tabItem {
-                            
-                            Image(systemName: "eye")
-                            Text("INSIGHT")
-                        }
-                }
-                .accentColor(Color("myColor"))
-            }
+            tabView()
         }
     }
 }
