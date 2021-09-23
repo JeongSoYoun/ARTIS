@@ -10,7 +10,10 @@ import SwiftUI
 struct MegazineView: View {
     var body: some View {
         
-        Text("Megazine View")
+        NavigationView {
+            
+            Text("Megazine View")
+        }
     }
 }
 

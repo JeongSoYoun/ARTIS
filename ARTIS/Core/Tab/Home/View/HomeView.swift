@@ -10,17 +10,19 @@ struct HomeView: View {
     
     var body: some View {
           
-        ScrollView {
+        NavigationView {
             
-            VStack {
+            ScrollView {
                 
-                headerView
-                
-                itemBarView
+                VStack {
+                    
+                    headerView
+                    
+                    itemBarView
+                }
             }
+            .navigationBarHidden(true)
         }
-        .navigationTitle("")
-        .navigationBarHidden(true)
     }
 }
 

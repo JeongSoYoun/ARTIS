@@ -11,7 +11,10 @@ struct ProfileView: View {
     
     var body: some View {
         
-        Text("Profile View")
+        NavigationView {
+            
+            Text("Profile View")
+        }
     }
 }
 
