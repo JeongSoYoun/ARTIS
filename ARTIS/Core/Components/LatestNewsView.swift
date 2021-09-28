@@ -30,10 +30,10 @@ struct LatestNewsView_Previews: PreviewProvider {
         
         Group {
             
-            LatestNewsView(newsModel: NewsModel(id:"발매 정보",image_name: "peace", title: "피스마이너스원"))
+            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
                 .previewLayout(.sizeThatFits)
             
-            LatestNewsView(newsModel: NewsModel(id: "발매 정보", image_name: "peace", title: "피스마이너스원"))
+            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject: "발매 정보"))
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
@@ -59,7 +59,7 @@ extension LatestNewsView {
                     .font(.footnote)
                     .foregroundColor(Color.theme.SubText)
                 
-                Text(newsModel.id)
+                Text(newsModel.subject)
                     .font(.footnote)
                     .foregroundColor(Color.theme.SubText)
                 
@@ -99,6 +99,8 @@ extension LatestNewsView {
                 }
             }
             .padding(.bottom)
+            
+            Divider()
         }
         .padding(.top,10)
         .padding(.horizontal)
