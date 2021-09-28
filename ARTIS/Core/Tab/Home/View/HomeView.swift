@@ -21,7 +21,21 @@ struct HomeView: View {
                     
                     itemBarView
                     
-                    CarouselView(itemHeight: 200, views: carouselVM.viewList(menu: "sneakers").0, title: carouselVM.viewList(menu: "sneakers").1)
+                    carouselView(menu: selectedItem)
+                    
+                    HStack {
+                        
+                        Text("최신 소식")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.theme.accent)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .padding(.trailing)
+                    }
+                    .padding()
                 }
             }
             .navigationBarHidden(true)
@@ -75,5 +89,12 @@ extension HomeView {
                 .frame(height:2)
         }
         .padding(.horizontal)
+    }
+    
+    private func carouselView(menu: String) -> AnyView {
+        
+        return AnyView(CarouselView(itemHeight: 200,
+                                    views: carouselVM.viewList(menu: menu).0,
+                                    title: carouselVM.viewList(menu: menu).1))
     }
 }
