@@ -50,6 +50,7 @@ extension HomeView {
             Spacer()
             
             alarmView(imageName: "bell")
+                .padding(.trailing)
         }
         .padding()
         .padding(.top,20)
