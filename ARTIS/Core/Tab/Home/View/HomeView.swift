@@ -23,27 +23,9 @@ struct HomeView: View {
                     
                     carouselView(menu: selectedItem)
                     
-                    HStack {
-                        
-                        Text("최신 소식")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.theme.accent)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .padding(.trailing)
-                    }
-                    .padding()
+                    latestNewsHeader
                     
-                    VStack {
-                        
-                        ForEach(carouselVM.all_news) { news in
-                            
-                            LatestNewsView(newsModel: news)
-                        }
-                    }
+                    latestNewsView
                 }
             }
             .navigationBarHidden(true)
@@ -59,6 +41,7 @@ struct HomeView_Previews: PreviewProvider {
             HomeView(carouselVM: HomeViewModel())
                 .navigationBarHidden(true)
         }
+        .preferredColorScheme(.light)
     }
 }
 
@@ -99,10 +82,40 @@ extension HomeView {
         .padding(.horizontal)
     }
     
+    private var latestNewsHeader: some View {
+        
+        HStack {
+            
+            Text("최신 소식")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(Color.theme.accent)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .padding(.trailing)
+        }
+        .padding()
+    }
+    
+    private var latestNewsView: some View {
+        
+        VStack {
+            
+            ForEach(carouselVM.all_news) { news in
+                
+                LatestNewsView(newsModel: news)
+                
+            }
+        }
+    }
+    
     private func carouselView(menu: String) -> AnyView {
         
         return AnyView(CarouselView(itemHeight: 200,
                                     views: carouselVM.viewList(menu: menu).0,
-                                    title: carouselVM.viewList(menu: menu).1))
+                                    title: carouselVM.viewList(menu: menu).1)
+               )
     }
 }
