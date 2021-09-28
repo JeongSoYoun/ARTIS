@@ -38,7 +38,7 @@ extension tabView {
                 
             case 0:
                 
-                HomeView()
+                HomeView(carouselVM: CarouselViewModel())
                 
             case 1:
                 

@@ -6,6 +6,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State var selectedItem: String = "발매 정보"
+    @ObservedObject var carouselVM: CarouselViewModel
     @Namespace var animation
     
     var body: some View {
@@ -15,10 +16,12 @@ struct HomeView: View {
             ScrollView {
                 
                 VStack {
-                    
+    
                     headerView
                     
                     itemBarView
+                    
+                    CarouselView(itemHeight: 200, views: carouselVM.viewList(menu: "sneakers").0, title: carouselVM.viewList(menu: "sneakers").1)
                 }
             }
             .navigationBarHidden(true)
@@ -31,7 +34,7 @@ struct HomeView_Previews: PreviewProvider {
         
         NavigationView {
             
-            HomeView()
+            HomeView(carouselVM: CarouselViewModel())
                 .navigationBarHidden(true)
         }
     }
