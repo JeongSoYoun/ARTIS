@@ -6,6 +6,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State var selectedItem: String = "발매 정보"
+    @ObservedObject var carouselVM: HomeViewModel
     @Namespace var animation
     
     var body: some View {
@@ -15,10 +16,16 @@ struct HomeView: View {
             ScrollView {
                 
                 VStack {
-                    
+    
                     headerView
                     
                     itemBarView
+                    
+                    carouselView(menu: selectedItem)
+                    
+                    latestNewsHeader
+                    
+                    latestNewsView
                 }
             }
             .navigationBarHidden(true)
@@ -31,9 +38,10 @@ struct HomeView_Previews: PreviewProvider {
         
         NavigationView {
             
-            HomeView()
+            HomeView(carouselVM: HomeViewModel())
                 .navigationBarHidden(true)
         }
+        .preferredColorScheme(.light)
     }
 }
 
@@ -50,6 +58,7 @@ extension HomeView {
             Spacer()
             
             alarmView(imageName: "bell")
+                .padding(.trailing)
         }
         .padding()
         .padding(.top,20)
@@ -71,5 +80,42 @@ extension HomeView {
                 .frame(height:2)
         }
         .padding(.horizontal)
+    }
+    
+    private var latestNewsHeader: some View {
+        
+        HStack {
+            
+            Text("최신 소식")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(Color.theme.accent)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .padding(.trailing)
+        }
+        .padding()
+    }
+    
+    private var latestNewsView: some View {
+        
+        VStack {
+            
+            ForEach(carouselVM.all_news) { news in
+                
+                LatestNewsView(newsModel: news)
+                
+            }
+        }
+    }
+    
+    private func carouselView(menu: String) -> AnyView {
+        
+        return AnyView(CarouselView(itemHeight: 200,
+                                    views: carouselVM.viewList(menu: menu).0,
+                                    title: carouselVM.viewList(menu: menu).1)
+               )
     }
 }

@@ -7,6 +7,7 @@ struct CarouselView: View {
     
     var itemHeight: CGFloat
     var views: [AnyView]
+    var title: [String]
     
     private func onDragEnded(drag: DragGesture.Value) {
         
@@ -64,24 +65,25 @@ struct CarouselView: View {
             
             VStack {
 
-                Spacer().frame(height:itemHeight + 50)
-                Text("")
-                    .font(.caption)
+                Spacer().frame(height:itemHeight + 30)
+                Text(title[relativeLoc()])
+                    .font(.subheadline)
                     .fontWeight(.bold)
+                    .foregroundColor(Color.theme.accent)
                     .padding()
             }
         }
     }
     
-    func relativeLoc() -> Int{
+    func relativeLoc() -> Int {
         
         return ((views.count * 10000) + carouselLocation) % views.count
     }
     
-    func getHeight(_ i:Int) -> CGFloat{
+    func getHeight(_ i:Int) -> CGFloat {
         
-        if i == relativeLoc(){
-            
+        if i == relativeLoc() {
+             
             return itemHeight
             
         } else {
@@ -122,7 +124,7 @@ struct CarouselView: View {
             
             return self.dragState.translation.width + (200 + 20)
             
-        } else if i == relativeLoc() - 1 || (relativeLoc() == 0 && (i) == views.count - 1) {
+        } else if i == relativeLoc() - 1 || (relativeLoc() == 0 && i == views.count - 1) {
             
             
             return self.dragState.translation.width - (200 + 20)
