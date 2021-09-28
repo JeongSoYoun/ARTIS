@@ -1,9 +1,9 @@
 
 import Foundation
 
-struct NewsModel {
+struct NewsModel: Identifiable {
     
+    let id: String
     let image_name: String
     let title: String
-    let subject: String
 }
