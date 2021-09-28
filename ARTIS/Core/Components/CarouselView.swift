@@ -73,15 +73,15 @@ struct CarouselView: View {
         }
     }
     
-    func relativeLoc() -> Int{
+    func relativeLoc() -> Int {
         
         return ((views.count * 10000) + carouselLocation) % views.count
     }
     
-    func getHeight(_ i:Int) -> CGFloat{
+    func getHeight(_ i:Int) -> CGFloat {
         
-        if i == relativeLoc(){
-            
+        if i == relativeLoc() {
+             
             return itemHeight
             
         } else {
@@ -122,7 +122,7 @@ struct CarouselView: View {
             
             return self.dragState.translation.width + (200 + 20)
             
-        } else if i == relativeLoc() - 1 || (relativeLoc() == 0 && (i) == views.count - 1) {
+        } else if i == relativeLoc() - 1 || (relativeLoc() == 0 && i == views.count - 1) {
             
             
             return self.dragState.translation.width - (200 + 20)
