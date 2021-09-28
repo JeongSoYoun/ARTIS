@@ -7,6 +7,7 @@ struct CarouselView: View {
     
     var itemHeight: CGFloat
     var views: [AnyView]
+    var title: [String]
     
     private func onDragEnded(drag: DragGesture.Value) {
         
@@ -65,9 +66,10 @@ struct CarouselView: View {
             VStack {
 
                 Spacer().frame(height:itemHeight + 50)
-                Text("")
+                Text(title[relativeLoc()])
                     .font(.caption)
                     .fontWeight(.bold)
+                    .foregroundColor(Color.theme.accent)
                     .padding()
             }
         }
