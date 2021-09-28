@@ -6,7 +6,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State var selectedItem: String = "발매 정보"
-    @ObservedObject var carouselVM: CarouselViewModel
+    @ObservedObject var carouselVM: HomeViewModel
     @Namespace var animation
     
     var body: some View {
@@ -36,6 +36,14 @@ struct HomeView: View {
                             .padding(.trailing)
                     }
                     .padding()
+                    
+                    VStack {
+                        
+                        ForEach(carouselVM.all_news) { news in
+                            
+                            LatestNewsView(newsModel: news)
+                        }
+                    }
                 }
             }
             .navigationBarHidden(true)
@@ -48,7 +56,7 @@ struct HomeView_Previews: PreviewProvider {
         
         NavigationView {
             
-            HomeView(carouselVM: CarouselViewModel())
+            HomeView(carouselVM: HomeViewModel())
                 .navigationBarHidden(true)
         }
     }
