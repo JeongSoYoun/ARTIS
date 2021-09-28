@@ -65,9 +65,9 @@ struct CarouselView: View {
             
             VStack {
 
-                Spacer().frame(height:itemHeight + 50)
+                Spacer().frame(height:itemHeight + 30)
                 Text(title[relativeLoc()])
-                    .font(.caption)
+                    .font(.subheadline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.theme.accent)
                     .padding()
