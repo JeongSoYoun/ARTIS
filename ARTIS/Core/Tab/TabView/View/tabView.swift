@@ -9,13 +9,13 @@ struct tabView: View {
 
     var body: some View {
         
-        VStack {
+        VStack(spacing:0) {
             
             tabSwitchView
             
             Divider()
             
-            tabButtonView
+            tabBarView
         }
     }
 }
@@ -55,7 +55,7 @@ extension tabView {
         }
     }
     
-    private var tabButtonView: some View {
+    private var tabBarView: some View {
         
         HStack(spacing:20) {
             
@@ -78,5 +78,6 @@ extension tabView {
             
             Spacer()
         }
+        .padding(.top,10)
     }
 }

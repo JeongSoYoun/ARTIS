@@ -101,12 +101,11 @@ extension HomeView {
     
     private var latestNewsView: some View {
         
-        VStack {
+        VStack(spacing:20) {
             
             ForEach(carouselVM.all_news) { news in
                 
                 LatestNewsView(newsModel: news)
-                
             }
         }
     }
