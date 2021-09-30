@@ -40,11 +40,9 @@ extension LatestNewsView {
         
         ZStack(alignment: .leading) {
             
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 10)
                 .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/2)
-                .foregroundColor(Color.theme.background)
-                .shadow(color: Color.theme.accent,
-                        radius: 2, x: 0, y: 0)
+                .foregroundColor(Color.theme.newsColor)
             
             VStack {
                 
@@ -79,6 +77,17 @@ extension LatestNewsView {
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(Color.theme.SubText)
+                    
+                    HStack {
+                        Image(systemName: "eye")
+                            .font(.footnote)
+                            .foregroundColor(Color.theme.SubText)
+                        
+                        Text("20")
+                            .font(.footnote)
+                            .foregroundColor(Color.theme.SubText)
+                        
+                    }.padding(.horizontal)
                     
                     Spacer()
                     
