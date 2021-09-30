@@ -38,14 +38,14 @@ struct CarouselView: View {
                             self.views[index]
                             
                             .frame(width:200, height: self.getHeight(index))
-                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
+                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0), value: UUID())
                             .background(Color.white)
                             .cornerRadius(10)
                             .shadow(radius: 3)
                             .opacity(self.getOpacity(index))
-                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
+                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0), value: UUID())
                             .offset(x: self.getOffset(index))
-                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
+                            .animation(.interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0), value: UUID())
                             
                         }.padding()
                     }
