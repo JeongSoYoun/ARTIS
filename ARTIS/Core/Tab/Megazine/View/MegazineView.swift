@@ -1,19 +1,13 @@
-//
-//  MeagazineView.swift
-//  MeagazineView
-//
-//  Created by 정소윤 on 2021/09/23.
-//
 
 import SwiftUI
 
 struct MegazineView: View {
+    
+    @StateObject var megazineVM: MegazineViewModel
+    
     var body: some View {
         
-        NavigationView {
-            
-            Text("Megazine View")
-        }
+        cardMegazine
     }
 }
 
@@ -21,6 +15,29 @@ struct MegazineView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        MegazineView()
+        NavigationView {
+            
+            MegazineView(megazineVM: MegazineViewModel())
+        }
+        .navigationTitle("카드 메거진")
+    }
+}
+
+extension MegazineView {
+    
+    private var cardMegazine: some View {
+        
+        VStack {
+            
+            Spacer()
+            
+            ZStack {
+                
+                CardMegazineView(megazines: megazineVM.all_meagazines)
+            }
+            .frame(maxHeight: (UIScreen.main.bounds.height)/2)
+            
+            Spacer()
+        }
     }
 }
