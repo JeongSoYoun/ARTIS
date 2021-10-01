@@ -42,7 +42,11 @@ extension tabView {
                 
             case 1:
                 
-                MegazineView()
+                NavigationView {
+                   
+                    MegazineView(megazineVM: MegazineViewModel())
+                        .navigationTitle("카드 메거진 🎃")
+                }
             
             case 2:
                 
