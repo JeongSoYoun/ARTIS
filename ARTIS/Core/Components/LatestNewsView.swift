@@ -9,8 +9,7 @@ import SwiftUI
 
 struct LatestNewsView: View {
     
-    let newsModel: NewsModel
-    @State var isSaving: Bool = false
+    let newsModel: News
     
     var body: some View {
         
@@ -24,10 +23,10 @@ struct LatestNewsView_Previews: PreviewProvider {
         
         Group {
             
-            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
+            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
                 .previewLayout(.sizeThatFits)
             
-            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
+            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
@@ -38,67 +37,71 @@ extension LatestNewsView {
     
     private var newsView: some View {
         
-        ZStack(alignment: .leading) {
+        ZStack {
             
             RoundedRectangle(cornerRadius: 10)
-                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/2)
-                .foregroundColor(Color.theme.newsColor)
+                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/3.5)
+                .foregroundColor(Color.theme.background)
             
             VStack {
                 
                 HStack(alignment: .top) {
                     
-                    VStack(alignment: .leading,spacing:10) {
+                    VStack(alignment: .leading, spacing:10) {
                         
-                        Text(newsModel.subject)
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.theme.SubText)
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            Text(newsModel.subject)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.theme.accent)
+                            
+                            HStack {
+                                
+                                Text("2021-09-30")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.theme.accent)
+                                
+                                HStack {
+                                    Image(systemName: "eye")
+                                        .font(.caption)
+                                        .foregroundColor(Color.theme.accent)
+                                    
+                                    Text("20")
+                                        .font(.caption)
+                                        .foregroundColor(Color.theme.accent)
+                                    
+                                }.padding(.horizontal,5)
+                                
+                                Spacer()
+                            }
+                        }
                         
                         Text(newsModel.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color.theme.SubText)
+                        
+                        Spacer()
                     }
-                    Spacer()
+                    .padding(.top,10)
                     
-                    Image(newsModel.image_name)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
-                        .cornerRadius(10)
+                    VStack {
+                        
+                        Spacer()
+                        
+                        Image(newsModel.image_name)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width/5, height: UIScreen.main.bounds.width/5)
+                            .cornerRadius(10)
+                        
+                        Spacer()
+                    }
                 }
                 .padding(.horizontal,10)
-                .frame(maxWidth: UIScreen.main.bounds.width - 30)
-                
-                Divider()
-                    .frame(maxWidth: UIScreen.main.bounds.width-30)
-                HStack {
-                    
-                    Text("2021-09-30")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.theme.SubText)
-                    
-                    HStack {
-                        Image(systemName: "eye")
-                            .font(.footnote)
-                            .foregroundColor(Color.theme.SubText)
-                        
-                        Text("20")
-                            .font(.footnote)
-                            .foregroundColor(Color.theme.SubText)
-                        
-                    }.padding(.horizontal)
-                    
-                    Spacer()
-                    
-                    Button(action: {}) {
-                        Image(systemName: "ellipsis")
-                    }
-                }
-                .padding(.horizontal)
-                .frame(maxWidth: UIScreen.main.bounds.width - 30)
+                .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
             }
-            .frame(maxHeight: UIScreen.main.bounds.width/2)
         }
     }
 }
