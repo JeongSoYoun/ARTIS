@@ -1,11 +1,9 @@
 
 import Foundation
-import Firebase
-import FirebaseFirestoreSwift
 
 struct News: Identifiable, Codable {
     
-    @DocumentID var id: String?
+    var id: String = UUID().uuidString
     let image_name: String
     let title: String
     let subject: String

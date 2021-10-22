@@ -109,7 +109,7 @@ extension HomeView {
         
         VStack(spacing:5) {
             
-            ForEach(0 ..< 4) {index in
+            ForEach(0 ..< 4) { index in
                 
                 LatestNewsView(newsModel: vm.all_news[index])
             }
