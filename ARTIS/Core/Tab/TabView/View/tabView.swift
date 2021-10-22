@@ -25,6 +25,7 @@ struct tabView_Previews: PreviewProvider {
     static var previews: some View {
         
         tabView()
+            .preferredColorScheme(.light)
     }
 }
 
@@ -38,7 +39,7 @@ extension tabView {
                 
             case 0:
                 
-                HomeView(carouselVM: HomeViewModel())
+                HomeView(vm: HomeViewModel())
                 
             case 1:
                 
@@ -50,8 +51,12 @@ extension tabView {
             
             case 2:
                 
-                SearchView()
-        
+                NavigationView {
+                    
+                    SearchView()
+                        .navigationTitle("검색하기")
+                }
+
             default:
                 
                 ProfileView()
@@ -72,11 +77,19 @@ extension tabView {
                     self.selectedTab = index
                 }) {
                     
-                    Image(systemName: tabVM.tabItemList[index].tabItemImage)
-                        .font(.system(size: 20,
-                                      weight: .regular,
-                                      design: .default))
-                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                    VStack(spacing:5) {
+                        
+                        Image(systemName: tabVM.tabItemList[index].tabItemImage)
+                            .font(.system(size: 20,
+                                          weight: .regular,
+                                          design: .default))
+                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                        
+                        Text(tabVM.tabItemList[index].tabItemText)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                    }
                 }
             }
             
