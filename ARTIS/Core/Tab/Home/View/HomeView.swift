@@ -6,7 +6,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State var selectedItem: String = "발매 정보"
-    @ObservedObject var carouselVM: HomeViewModel
+    @ObservedObject var vm: HomeViewModel
     @Namespace var animation
     
     var body: some View {
@@ -38,7 +38,7 @@ struct HomeView_Previews: PreviewProvider {
         
         NavigationView {
             
-            HomeView(carouselVM: HomeViewModel())
+            HomeView(vm: HomeViewModel())
                 .navigationBarHidden(true)
         }
         .preferredColorScheme(.light)
@@ -93,20 +93,25 @@ extension HomeView {
             
             Spacer()
             
-            Image(systemName: "chevron.right")
-                .padding(.trailing)
+            NavigationLink(destination: moreLatestNewsView(allNEWS: vm.all_news)){
+                
+                Text("더 보기")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.theme.MainColor)
+                    .padding(.horizontal)
+            }
         }
         .padding()
     }
     
     private var latestNewsView: some View {
         
-        VStack {
+        VStack(spacing:5) {
             
-            ForEach(carouselVM.all_news) { news in
+            ForEach(0 ..< 4) { index in
                 
-                LatestNewsView(newsModel: news)
-                
+                LatestNewsView(newsModel: vm.all_news[index])
             }
         }
     }
@@ -114,8 +119,8 @@ extension HomeView {
     private func carouselView(menu: String) -> AnyView {
         
         return AnyView(CarouselView(itemHeight: 200,
-                                    views: carouselVM.viewList(menu: menu).0,
-                                    title: carouselVM.viewList(menu: menu).1)
+                                    views: vm.viewList(menu: menu).0,
+                                    title: vm.viewList(menu: menu).1)
                )
     }
 }

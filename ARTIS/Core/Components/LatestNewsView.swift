@@ -9,18 +9,11 @@ import SwiftUI
 
 struct LatestNewsView: View {
     
-    let newsModel: NewsModel
-    @State var isSaving: Bool = false
+    let newsModel: News
     
     var body: some View {
         
-        VStack {
-            
-            
-            newsImageView
-            
-            infoView
-        }
+        newsView
     }
 }
 
@@ -30,10 +23,10 @@ struct LatestNewsView_Previews: PreviewProvider {
         
         Group {
             
-            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
+            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
                 .previewLayout(.sizeThatFits)
             
-            LatestNewsView(newsModel: NewsModel(image_name: "peace", title: "피스마이너스원", subject: "발매 정보"))
+            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
@@ -42,67 +35,73 @@ struct LatestNewsView_Previews: PreviewProvider {
 
 extension LatestNewsView {
     
-    private var newsImageView: some View {
+    private var newsView: some View {
         
-        Image(newsModel.image_name)
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width - 30, height: UIScreen.main.bounds.width/1.5)
-            .cornerRadius(20)
-    }
-    
-    private var infoView: some View {
-        
-        VStack(alignment: .leading) {
+        ZStack {
             
-            HStack {
-                Text("2021-09-29")
-                    .font(.footnote)
-                    .foregroundColor(Color.theme.SubText)
-                
-                Text(newsModel.subject)
-                    .font(.footnote)
-                    .foregroundColor(Color.theme.SubText)
-                
-                Spacer()
-            }
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/3.5)
+                .foregroundColor(Color.theme.background)
             
-            HStack(alignment:.bottom) {
+            VStack {
                 
-                Text(newsModel.title)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.theme.accent)
-                    .padding(.top,1)
-                
-                Spacer()
-                
-                HStack {
+                HStack(alignment: .top) {
                     
-                    Button(action: {}) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-
-                    Button(action: {
+                    VStack(alignment: .leading, spacing:10) {
                         
-                        withAnimation{isSaving.toggle()}
-                    }) {
-                        
-                        if isSaving {
+                        VStack(alignment: .leading, spacing: 5) {
                             
-                            Image(systemName: "bookmark.fill")
-                                .foregroundColor(Color.theme.MainColor)
-                        } else {
+                            Text(newsModel.subject)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.theme.accent)
                             
-                            Image(systemName: "bookmark")
+                            HStack {
+                                
+                                Text("2021-09-30")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.theme.accent)
+                                
+                                HStack {
+                                    Image(systemName: "eye")
+                                        .font(.caption)
+                                        .foregroundColor(Color.theme.accent)
+                                    
+                                    Text("20")
+                                        .font(.caption)
+                                        .foregroundColor(Color.theme.accent)
+                                    
+                                }.padding(.horizontal,5)
+                                
+                                Spacer()
+                            }
                         }
+                        
+                        Text(newsModel.title)
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color.theme.SubText)
+                        
+                        Spacer()
+                    }
+                    .padding(.top,10)
+                    
+                    VStack {
+                        
+                        Spacer()
+                        
+                        Image(newsModel.image_name)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width/5, height: UIScreen.main.bounds.width/5)
+                            .cornerRadius(10)
+                        
+                        Spacer()
                     }
                 }
+                .padding(.horizontal,10)
+                .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
             }
-            .padding(.bottom)
-            
-            Divider()
         }
-        .padding(.top,10)
-        .padding(.horizontal)
     }
 }

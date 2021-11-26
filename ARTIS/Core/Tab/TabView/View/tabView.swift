@@ -9,13 +9,13 @@ struct tabView: View {
 
     var body: some View {
         
-        VStack {
+        VStack(spacing:0) {
             
             tabSwitchView
             
             Divider()
             
-            tabButtonView
+            tabBarView
         }
     }
 }
@@ -25,6 +25,7 @@ struct tabView_Previews: PreviewProvider {
     static var previews: some View {
         
         tabView()
+            .preferredColorScheme(.light)
     }
 }
 
@@ -38,16 +39,24 @@ extension tabView {
                 
             case 0:
                 
-                HomeView(carouselVM: HomeViewModel())
+                HomeView(vm: HomeViewModel())
                 
             case 1:
                 
-                MegazineView()
+                NavigationView {
+                   
+                    MegazineView(megazineVM: MegazineViewModel())
+                        .navigationTitle("카드 메거진 🎃")
+                }
             
             case 2:
                 
-                SearchView()
-        
+                NavigationView {
+                    
+                    SearchView()
+                        .navigationTitle("검색하기")
+                }
+
             default:
                 
                 ProfileView()
@@ -55,7 +64,7 @@ extension tabView {
         }
     }
     
-    private var tabButtonView: some View {
+    private var tabBarView: some View {
         
         HStack(spacing:20) {
             
@@ -68,15 +77,24 @@ extension tabView {
                     self.selectedTab = index
                 }) {
                     
-                    Image(systemName: tabVM.tabItemList[index].tabItemImage)
-                        .font(.system(size: 20,
-                                      weight: .regular,
-                                      design: .default))
-                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                    VStack(spacing:5) {
+                        
+                        Image(systemName: tabVM.tabItemList[index].tabItemImage)
+                            .font(.system(size: 20,
+                                          weight: .regular,
+                                          design: .default))
+                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                        
+                        Text(tabVM.tabItemList[index].tabItemText)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                    }
                 }
             }
             
             Spacer()
         }
+        .padding(.top,10)
     }
 }

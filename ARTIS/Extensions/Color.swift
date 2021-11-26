@@ -14,4 +14,5 @@ struct ColorTheme {
     let subBackground = Color("SubBackgroundColor")
     let SubText = Color("SubTextColor")
     let MainColor = Color("MainColor")
+    let newsColor = Color("NewsColor")
 }
