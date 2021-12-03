@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LatestNewsView: View {
     
-    let newsModel: News
+    let news: News
     
     var body: some View {
         
@@ -23,10 +23,10 @@ struct LatestNewsView_Previews: PreviewProvider {
         
         Group {
             
-            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
+            LatestNewsView(news: dev.news)
                 .previewLayout(.sizeThatFits)
             
-            LatestNewsView(newsModel: News(image_name: "peace", title: "피스마이너스원", subject:"발매 정보"))
+            LatestNewsView(news: dev.news)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
@@ -51,14 +51,14 @@ extension LatestNewsView {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             
-                            Text(newsModel.subject)
+                            Text(news.category)
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.theme.accent)
                             
                             HStack {
                                 
-                                Text("2021-09-30")
+                                Text(DateFormatter(Date(timeIntervalSince1970: news.createdAt)))
                                     .font(.caption)
                                     .fontWeight(.semibold)
                                     .foregroundColor(Color.theme.accent)
@@ -78,7 +78,7 @@ extension LatestNewsView {
                             }
                         }
                         
-                        Text(newsModel.title)
+                        Text(news.title)
                             .font(.headline)
                             .fontWeight(.medium)
                             .foregroundColor(Color.theme.SubText)
@@ -91,10 +91,7 @@ extension LatestNewsView {
                         
                         Spacer()
                         
-                        Image(newsModel.image_name)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width/5, height: UIScreen.main.bounds.width/5)
-                            .cornerRadius(10)
+                        NewsImageView(news: news)
                         
                         Spacer()
                     }
@@ -103,5 +100,18 @@ extension LatestNewsView {
                 .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
             }
         }
+    }
+    
+    private func DateFormatter(_ date: Date) -> String {
+        
+        let time = Calendar.current
+        
+        let year = time.component(.year, from: date)
+        let month = time.component(.month, from: date)
+        let day = time.component(.day, from: date)
+        
+        let timeFormat: String = "\(year)년 \(month)월 \(day)일"
+        
+        return timeFormat
     }
 }

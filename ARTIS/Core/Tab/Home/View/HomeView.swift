@@ -5,8 +5,8 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State var selectedItem: String = "발매 정보"
-    @ObservedObject var vm: HomeViewModel
+    @ObservedObject var vm: HomeViewModel = HomeViewModel()
+    @State private var selected: String = "발매정보"
     @Namespace var animation
     
     var body: some View {
@@ -21,11 +21,9 @@ struct HomeView: View {
                     
                     itemBarView
                     
-                    carouselView(menu: selectedItem)
+                    PageView()
                     
-                    latestNewsHeader
-                    
-                    latestNewsView
+                    latestNewsView()
                 }
             }
             .navigationBarHidden(true)
@@ -38,7 +36,7 @@ struct HomeView_Previews: PreviewProvider {
         
         NavigationView {
             
-            HomeView(vm: HomeViewModel())
+            HomeView()
                 .navigationBarHidden(true)
         }
         .preferredColorScheme(.light)
@@ -70,9 +68,9 @@ extension HomeView {
             
             HStack {
                 
-                ItemBarView(selectedItem: $selectedItem, item: "발매 정보", animation: animation)
-                ItemBarView(selectedItem: $selectedItem, item: "브랜드", animation: animation)
-                ItemBarView(selectedItem: $selectedItem, item: "전시회", animation: animation)
+                ItemBarView(selectedItem: $selected, item: "발매정보", animation: animation)
+                ItemBarView(selectedItem: $selected, item: "브랜드", animation: animation)
+                ItemBarView(selectedItem: $selected, item: "전시회", animation: animation)
             }
             
             Rectangle()
@@ -82,45 +80,93 @@ extension HomeView {
         .padding(.horizontal)
     }
     
-    private var latestNewsHeader: some View {
+    @ViewBuilder
+    private func PageView() -> some View {
         
-        HStack {
+        if !vm.main_news.isEmpty {
             
-            Text("최신 소식")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(Color.theme.accent)
-            
-            Spacer()
-            
-            NavigationLink(destination: moreLatestNewsView(allNEWS: vm.all_news)){
+            switch selected {
                 
-                Text("더 보기")
-                    .font(.subheadline)
+            case "발매정보":
+                
+                TabView {
+                    
+                    ForEach(vm.main_news) { (news) in
+                        
+                        if news.category == selected {
+                            
+                            MainNewsImageView(news: news)
+                        }
+                    }
+                }
+                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
+                .tabViewStyle(PageTabViewStyle())
+                .padding()
+                
+            case "브랜드":
+                
+                TabView {
+                    
+                    ForEach(vm.main_news) { (news) in
+                        
+                        if news.category == selected {
+                            
+                            MainNewsImageView(news: news)
+                        }
+                    }
+                }
+                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
+                .tabViewStyle(PageTabViewStyle())
+                .padding()
+                
+            default:
+                
+                TabView {
+                    
+                    ForEach(vm.main_news) { (news) in
+                        
+                        if news.category == selected {
+                            
+                            MainNewsImageView(news: news)
+                        }
+                    }
+                }
+                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
+                .tabViewStyle(PageTabViewStyle())
+                .padding()
+            }
+            
+        } else {
+            
+            ProgressView()
+        }
+    }
+    
+    @ViewBuilder
+    private func latestNewsView() -> some View {
+        
+        if !vm.all_news.isEmpty {
+            
+            HStack {
+                
+                Text("새로운 소식")
+                    .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.theme.MainColor)
-                    .padding(.horizontal)
-            }
-        }
-        .padding()
-    }
-    
-    private var latestNewsView: some View {
-        
-        VStack(spacing:5) {
-            
-            ForEach(0 ..< 4) { index in
+                    .foregroundColor(Color.theme.accent)
                 
-                LatestNewsView(newsModel: vm.all_news[index])
+                Spacer()
+            }
+            .padding()
+            
+            LazyVStack(spacing: 5) {
+                
+                ForEach(vm.all_news) { news in
+                    
+                    LatestNewsView(news: news)
+                }
             }
         }
-    }
-    
-    private func carouselView(menu: String) -> AnyView {
-        
-        return AnyView(CarouselView(itemHeight: 200,
-                                    views: vm.viewList(menu: menu).0,
-                                    title: vm.viewList(menu: menu).1)
-               )
     }
 }
+
+    // return CarouselView(itemHeight: 200, views: vm.AnyViewList, title: vm.titleList)

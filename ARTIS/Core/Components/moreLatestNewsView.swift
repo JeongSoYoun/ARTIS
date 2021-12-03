@@ -15,9 +15,9 @@ struct moreLatestNewsView: View {
         
         ScrollView {
             
-            ForEach(allNEWS) {news in
+            ForEach(allNEWS) { news in
                 
-                LatestNewsView(newsModel: news)
+                LatestNewsView(news: news)
             }
         }
             .navigationTitle("뉴스")
@@ -28,6 +28,6 @@ struct moreLatestNewsView: View {
 struct moreLatestNewsView_Previews: PreviewProvider {
     static var previews: some View {
         
-        moreLatestNewsView(allNEWS: [News(image_name: "peace", title: "PEACEMINUSONE", subject: "발매정보")])
+        moreLatestNewsView(allNEWS: [dev.news])
     }
 }

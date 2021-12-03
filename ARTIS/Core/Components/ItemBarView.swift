@@ -4,6 +4,8 @@ import SwiftUI
 struct ItemBarView: View {
     
     @Binding var selectedItem: String
+    @ObservedObject var vm: HomeViewModel = HomeViewModel()
+    
     var item: String
     var animation: Namespace.ID
     

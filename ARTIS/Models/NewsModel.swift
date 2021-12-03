@@ -1,12 +1,26 @@
 
 import Foundation
 
-struct News: Identifiable, Codable {
+struct News: Identifiable {
     
-    var id: String = UUID().uuidString
-    let image_name: String
+    var id: String
+    let category: String
+    let createdAt: Double
+    let tag: [String]
     let title: String
-    let subject: String
+    
+    func map() -> String {
+        
+        switch self.category {
+            
+        case "브랜드":
+            return "brand"
+        case "발매정보":
+            return "launch"
+        default :
+            return "exhibition"
+        }
+    }
 }
 
 
