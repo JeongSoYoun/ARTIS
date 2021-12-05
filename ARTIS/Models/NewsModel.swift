@@ -6,6 +6,7 @@ struct News: Identifiable {
     var id: String
     let category: String
     let createdAt: Double
+    let read: Int
     let tag: [String]
     let title: String
     

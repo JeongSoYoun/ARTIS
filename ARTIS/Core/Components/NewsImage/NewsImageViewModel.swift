@@ -13,7 +13,9 @@ import Combine
 class NewsImageViewModel: ObservableObject {
 
     @Published var coverImage: UIImage? = nil
+    @Published var contentsImages: UIImage? = nil
     @Published var isLoading: Bool = false
+    @Published var isContentsLoading: Bool = false
     
     private let news: News
     private let DataService: NewsImageDataService // communication part
@@ -24,11 +26,12 @@ class NewsImageViewModel: ObservableObject {
         self.news = news
         self.DataService = NewsImageDataService(news: news)
         self.isLoading = true
+        self.isContentsLoading = true
         
-        downloadCoverImage()
+        addSubscribers()
     }
     
-    private func downloadCoverImage() {
+    private func addSubscribers() {
         
         DataService.$coverImage
             .sink { [weak self] _ in
@@ -37,5 +40,18 @@ class NewsImageViewModel: ObservableObject {
                 self?.coverImage = returnedCoverImage
             }
             .store(in: &cancellable)
+        
+        DataService.$contentsImage
+            .sink { [weak self] _ in
+                self?.isContentsLoading = false
+            } receiveValue: { returnedContentsImages in
+                self.contentsImages = returnedContentsImages
+            }
+            .store(in: &cancellable)
+    }
+    
+    func downloadContentsImage(_ of: Int) async {
+        
+        DataService.getContentsImage(of)
     }
 }

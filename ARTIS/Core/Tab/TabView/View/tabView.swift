@@ -4,6 +4,7 @@ import SwiftUI
 struct tabView: View {
     
     @State var selectedTab: Int = 0
+    @State var isTabShow: Bool = true
     
     private let tabVM = tabViewModel()
 
@@ -25,7 +26,6 @@ struct tabView_Previews: PreviewProvider {
     static var previews: some View {
         
         tabView()
-            .preferredColorScheme(.light)
     }
 }
 
@@ -43,19 +43,13 @@ extension tabView {
                 
             case 1:
                 
-                NavigationView {
-                   
-                    MegazineView(megazineVM: MegazineViewModel())
-                        .navigationTitle("카드 메거진 🎃")
-                }
+                MegazineView(megazineVM: MegazineViewModel())
+                    .navigationTitle("카드 메거진 🎃")
             
             case 2:
                 
-                NavigationView {
-                    
-                    SearchView()
-                        .navigationTitle("검색하기")
-                }
+                SearchView()
+                    .navigationTitle("검색하기")
 
             default:
                 
@@ -66,30 +60,28 @@ extension tabView {
     
     private var tabBarView: some View {
         
-        HStack(spacing:20) {
+        HStack(spacing: 20) {
             
             ForEach(0 ..< 4 , id: \.self) { index in
                 
                 Spacer()
                 
-                Button(action: {
+                VStack(spacing: 5) {
+                    
+                    Image(systemName: tabVM.tabItemList[index].tabItemImage)
+                        .font(.system(size: 15,
+                                      weight: .regular,
+                                      design: .default))
+                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                    
+                    Text(tabVM.tabItemList[index].tabItemText)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                }
+                .onTapGesture {
                     
                     self.selectedTab = index
-                }) {
-                    
-                    VStack(spacing:5) {
-                        
-                        Image(systemName: tabVM.tabItemList[index].tabItemImage)
-                            .font(.system(size: 20,
-                                          weight: .regular,
-                                          design: .default))
-                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
-                        
-                        Text(tabVM.tabItemList[index].tabItemText)
-                            .font(.caption)
-                            .fontWeight(.bold)
-                            .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
-                    }
                 }
             }
             

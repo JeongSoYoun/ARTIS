@@ -15,11 +15,8 @@ struct MegazineView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        NavigationView {
-            
-            MegazineView(megazineVM: MegazineViewModel())
-        }
-        .navigationTitle("카드 메거진")
+        MegazineView(megazineVM: MegazineViewModel())
+            .navigationTitle("카드 메거진")
     }
 }
 

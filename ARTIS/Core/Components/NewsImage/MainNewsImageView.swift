@@ -22,16 +22,22 @@ struct MainNewsImageView: View {
         
         if let image = vm.coverImage {
             
-            VStack(spacing: 10) {
-                
-                Text(newsTitle)
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.theme.accent)
+            ZStack(alignment: .center) {
                 
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(CGSize(width: 1.6, height: 1.2), contentMode: .fit)
+                    .overlay(
+                        
+                        Color.black.opacity(0.6)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+                Text(newsTitle)
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .padding()
             }
             
         } else if vm.isLoading {

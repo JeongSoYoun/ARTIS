@@ -34,14 +34,6 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
-    private func filterMainNews(selected: String, news: [News]) -> [News] {
-
-        news.filter { news -> Bool in
-
-            return news.category == selected
-        }
-    }
 }
 
 //    func carousel() {

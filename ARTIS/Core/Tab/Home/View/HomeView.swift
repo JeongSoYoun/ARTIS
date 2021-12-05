@@ -1,45 +1,37 @@
 
-// Home View
-
 import SwiftUI
 
 struct HomeView: View {
     
     @ObservedObject var vm: HomeViewModel = HomeViewModel()
-    @State private var selected: String = "발매정보"
     @Namespace var animation
+    @State private var selected: String = "발매정보"
     
     var body: some View {
           
-        NavigationView {
+        ScrollView {
             
-            ScrollView {
+            VStack {
+
+                headerView
                 
-                VStack {
-    
-                    headerView
-                    
-                    itemBarView
-                    
-                    PageView()
-                    
-                    latestNewsView()
-                }
+                itemBarView
+                                    
+                PageView
+                
+                latestNewsView
             }
-            .navigationBarHidden(true)
         }
+        .navigationBarHidden(true)
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
+    
     static var previews: some View {
         
-        NavigationView {
-            
-            HomeView()
-                .navigationBarHidden(true)
-        }
-        .preferredColorScheme(.light)
+        HomeView()
+            .navigationBarHidden(true)
     }
 }
 
@@ -81,69 +73,31 @@ extension HomeView {
     }
     
     @ViewBuilder
-    private func PageView() -> some View {
-        
+    private var PageView: some View {
+
         if !vm.main_news.isEmpty {
             
+            let filterNews = vm.main_news.filter{$0.category == selected}
             switch selected {
-                
+
             case "발매정보":
-                
-                TabView {
-                    
-                    ForEach(vm.main_news) { (news) in
-                        
-                        if news.category == selected {
-                            
-                            MainNewsImageView(news: news)
-                        }
-                    }
-                }
-                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
-                .tabViewStyle(PageTabViewStyle())
-                .padding()
-                
+                mainNewsView(mainNews: filterNews)
+
             case "브랜드":
-                
-                TabView {
-                    
-                    ForEach(vm.main_news) { (news) in
-                        
-                        if news.category == selected {
-                            
-                            MainNewsImageView(news: news)
-                        }
-                    }
-                }
-                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
-                .tabViewStyle(PageTabViewStyle())
-                .padding()
-                
+                mainNewsView(mainNews: filterNews)
+
             default:
-                
-                TabView {
-                    
-                    ForEach(vm.main_news) { (news) in
-                        
-                        if news.category == selected {
-                            
-                            MainNewsImageView(news: news)
-                        }
-                    }
-                }
-                .frame(minWidth: UIScreen.main.bounds.width/1.5, minHeight: UIScreen.main.bounds.width/1.5)
-                .tabViewStyle(PageTabViewStyle())
-                .padding()
+                mainNewsView(mainNews: filterNews)
             }
-            
+
         } else {
-            
+
             ProgressView()
         }
     }
     
     @ViewBuilder
-    private func latestNewsView() -> some View {
+    private var latestNewsView: some View {
         
         if !vm.all_news.isEmpty {
             
@@ -170,3 +124,8 @@ extension HomeView {
 }
 
     // return CarouselView(itemHeight: 200, views: vm.AnyViewList, title: vm.titleList)
+
+//CarouselBuilder(anyViewArr: anyViewArr, titleArr: titleArr) { anyViewArr, titleArr in
+//
+//    CarouselView(itemHeight: 200, views: anyViewArr, title: titleArr)
+//}

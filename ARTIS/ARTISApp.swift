@@ -20,7 +20,10 @@ struct ARTISApp: App {
         
         WindowGroup {
             
-            HomeView()
+            NavigationView {
+                
+                tabView()
+            }
         }
     }
 }

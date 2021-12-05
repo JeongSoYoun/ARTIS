@@ -40,60 +40,25 @@ class NewsDataService {
     private func downloadNews() {
         
         getMainNews()
-        getAllCategoryNews()
+        getAllNews()
     }
     
-    private func getAllCategoryNews() {
+    private func getAllNews() {
         
-        let db = Firestore.firestore()
         for collection in collections {
             
-            var data = [News]()
-            
-            db.collection(collection).getDocuments { snapshot, error in
+            NetworkManager.downloadNewsData(collection: collection) { news in
                 
-                if error == nil {
-                    
-                    if let snapshot = snapshot {
-                        
-                        data = snapshot.documents.map { (document) in
-                            
-                            let category = document["category"] as? String ?? ""
-                            let createdAt = document["createdAt"] as? Double ?? 0.0
-                            let tag = document["tag"] as? [String] ?? []
-                            let title = document["title"] as? String ?? ""
-                            
-                            return News(id: document.documentID, category: category, createdAt: createdAt, tag: tag, title: title)
-                        }
-                        
-                        self.all_news.append(contentsOf: data)
-                    }
-                }
+                self.all_news.append(contentsOf: news)
             }
         }
     }
     
     private func getMainNews() {
         
-        let db = Firestore.firestore()
-        
-        db.collection("main").getDocuments { snapshot, error in
+        NetworkManager.downloadNewsData(collection: "main") { news in
             
-            if error == nil {
-                
-                if let snapshot = snapshot {
-                    
-                    self.main_news = snapshot.documents.map { (document) in
-                        
-                        let category = document["category"] as? String ?? ""
-                        let createdAt = document["createdAt"] as? Double ?? 0.0
-                        let tag = document["tag"] as? [String] ?? []
-                        let title = document["title"] as? String ?? ""
-                        
-                        return News(id: document.documentID, category: category, createdAt: createdAt, tag: tag, title: title)
-                    }
-                }
-            }
+            self.main_news = news
         }
     }
 }

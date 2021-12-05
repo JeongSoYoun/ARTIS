@@ -23,5 +23,5 @@ class DeveloperPreview {
     
     let homeVM: HomeViewModel = HomeViewModel()
     
-    let news: News = News(id: "AqSKP8kD9PWMQMkYGxsz", category: "브랜드", createdAt: 1638007245, tag: ["라프시몬스","프라다"], title: "라프시몬스 x 프라다")
+    let news: News = News(id: "TryWcXnqhQG4IgNjl8pL", category: "전시회", createdAt: 1638258792, read: 10, tag: ["식물관 PH"], title: "Artificial Plants")
 }

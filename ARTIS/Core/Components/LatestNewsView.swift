@@ -47,7 +47,7 @@ extension LatestNewsView {
                 
                 HStack(alignment: .top) {
                     
-                    VStack(alignment: .leading, spacing:10) {
+                    VStack(alignment: .leading, spacing: 30) {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             
@@ -58,7 +58,7 @@ extension LatestNewsView {
                             
                             HStack {
                                 
-                                Text(DateFormatter(Date(timeIntervalSince1970: news.createdAt)))
+                                Text(Date(timeIntervalSince1970: news.createdAt).format)
                                     .font(.caption)
                                     .fontWeight(.semibold)
                                     .foregroundColor(Color.theme.accent)
@@ -68,7 +68,7 @@ extension LatestNewsView {
                                         .font(.caption)
                                         .foregroundColor(Color.theme.accent)
                                     
-                                    Text("20")
+                                    Text(String(news.read))
                                         .font(.caption)
                                         .foregroundColor(Color.theme.accent)
                                     
@@ -100,18 +100,5 @@ extension LatestNewsView {
                 .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
             }
         }
-    }
-    
-    private func DateFormatter(_ date: Date) -> String {
-        
-        let time = Calendar.current
-        
-        let year = time.component(.year, from: date)
-        let month = time.component(.month, from: date)
-        let day = time.component(.day, from: date)
-        
-        let timeFormat: String = "\(year)년 \(month)월 \(day)일"
-        
-        return timeFormat
     }
 }
