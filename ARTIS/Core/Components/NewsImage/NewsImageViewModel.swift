@@ -50,8 +50,13 @@ class NewsImageViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
-    func downloadContentsImage(_ of: Int) async {
+    func downloadCoverImage() {
         
-        DataService.getContentsImage(of)
+        DataService.downloadCoverImage()
+    }
+    
+    func downloadContentsImage(_ of: Int) {
+        
+        DataService.downloadContentsImage(of)
     }
 }

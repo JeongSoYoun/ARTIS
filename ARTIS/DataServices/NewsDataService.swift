@@ -29,6 +29,7 @@ class NewsDataService {
     
     @Published var all_news: [News] = []
     @Published var main_news: [News] = []
+    @Published var exhibionInfo: ExhibionInfo? = nil
     
     private let collections: [String] = ["launch","brand","exhibition"]
     
@@ -60,5 +61,22 @@ class NewsDataService {
             
             self.main_news = news
         }
+    }
+    
+    func getInfo(collection: String, news: News) {
+        
+        let docRef = infoRef(collection: collection, id: news.id)
+        
+        NetworkManager.downloadInfoData(ref: docRef) { returnedExhibionInfo in
+            
+            self.exhibionInfo = returnedExhibionInfo
+        }
+    }
+    
+    private func infoRef(collection: String, id: String) -> DocumentReference {
+        
+        let db = Firestore.firestore().collection(collection).document(id)
+        
+        return db
     }
 }

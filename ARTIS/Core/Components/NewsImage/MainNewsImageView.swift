@@ -26,18 +26,17 @@ struct MainNewsImageView: View {
                 
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(CGSize(width: 1.6, height: 1.2), contentMode: .fit)
+                    .aspectRatio(CGSize(width: 1.6, height: 1.2 ), contentMode: .fit)
                     .overlay(
                         
                         Color.black.opacity(0.6)
                     )
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .cornerRadius(20)
                 
                 Text(newsTitle)
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
-                    .padding()
             }
             
         } else if vm.isLoading {

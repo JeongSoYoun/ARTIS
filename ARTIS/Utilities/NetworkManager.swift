@@ -27,12 +27,13 @@ class NetworkManager {
                         data = snapshot.documents.map { (document) in
                             
                             let category = document["category"] as? String ?? ""
+                            let contents = document["contents"] as? Int ?? 0
                             let createdAt = document["createdAt"] as? Double ?? 0.0
                             let read = document["read"] as? Int ?? 0
                             let tag = document["tag"] as? [String] ?? []
                             let title = document["title"] as? String ?? ""
                             
-                            return News(id: document.documentID, category: category, createdAt: createdAt, read: read ,tag: tag, title: title)
+                            return News(id: document.documentID, category: category, contents: contents, createdAt: createdAt, read: read ,tag: tag, title: title)
                         }
                         
                         completion(data)
@@ -45,7 +46,47 @@ class NetworkManager {
         }
     }
     
-    static func getCoverImage(ref: StorageReference, completion: @escaping (Data) -> Void) {
+    static func downloadInfoData(ref: DocumentReference, completion: @escaping (ExhibionInfo) -> Void) {
+        
+        var data: ExhibionInfo? = nil
+        
+        DispatchQueue.global(qos: .default).async {
+            
+            ref.getDocument { document, error in
+                
+                if error == nil {
+                    
+                    if let document = document, document.exists {
+                
+                        let artist = document["artist"] as? String ?? ""
+                        let isProgress = document["isProgress"] as? Bool ?? false
+                        let location = document["location"] as? String ?? ""
+                        let period = document["period"] as? [String:Double] ?? ["":0.0]
+                        let review = document["review"] as? [String:String] ?? ["":""]
+                        let score = document["score"] as? Double ?? 0.0 
+                        let sns = document["sns"] as? String ?? ""
+                        let title = document["title"] as? String ?? ""
+                        
+                        data = ExhibionInfo(id: document.documentID, artist: artist, isProgress: isProgress, location: location, period: period, review: review, score: score, sns: sns, title: title)
+                    }
+                    
+                    if let data = data {
+                        
+                        completion(data)
+                    } else {
+                        
+                        print("no data in document")
+                    }
+                    
+                } else {
+                    
+                    print("error downloading data")
+                }
+            }
+        }
+    }
+    
+    static func downloadCoverImage(ref: StorageReference, completion: @escaping (Data) -> Void) {
         
         DispatchQueue.global(qos: .background).async {
             
@@ -69,7 +110,7 @@ class NetworkManager {
         }
     }
     
-    static func getContentsImage(ref: StorageReference, num: Int, completion: @escaping (Data) -> Void) {
+    static func downloadContentsImage(ref: StorageReference, num: Int, completion: @escaping (Data) -> Void) {
         
         DispatchQueue.global(qos: .default).async {
             

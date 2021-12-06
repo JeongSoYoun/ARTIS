@@ -17,7 +17,7 @@ struct HomeView: View {
                 
                 itemBarView
                                     
-                PageView
+                mainPageView
                 
                 latestNewsView
             }
@@ -73,21 +73,20 @@ extension HomeView {
     }
     
     @ViewBuilder
-    private var PageView: some View {
+    private var mainPageView: some View {
 
         if !vm.main_news.isEmpty {
             
             let filterNews = vm.main_news.filter{$0.category == selected}
+            
             switch selected {
 
             case "발매정보":
-                mainNewsView(mainNews: filterNews)
-
+                contentsNavigationView(all_news: filterNews, news_type: "main")
             case "브랜드":
-                mainNewsView(mainNews: filterNews)
-
-            default:
-                mainNewsView(mainNews: filterNews)
+                contentsNavigationView(all_news: filterNews, news_type: "main")
+            default: // "전시회"
+                contentsNavigationView(all_news: filterNews, news_type: "main")
             }
 
         } else {
@@ -112,12 +111,16 @@ extension HomeView {
             }
             .padding()
             
-            LazyVStack(spacing: 5) {
+            let filterNews = vm.all_news.filter{$0.category == selected}
+            
+            switch selected {
                 
-                ForEach(vm.all_news) { news in
-                    
-                    LatestNewsView(news: news)
-                }
+            case "발매정보":
+                contentsNavigationView(all_news: filterNews, news_type: "all")
+            case "브랜드":
+                contentsNavigationView(all_news: filterNews, news_type: "all")
+            default: // "전시회"
+                contentsNavigationView(all_news: filterNews, news_type: "all")
             }
         }
     }

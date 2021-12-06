@@ -47,7 +47,7 @@ extension LatestNewsView {
                 
                 HStack(alignment: .top) {
                     
-                    VStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading) {
                         
                         VStack(alignment: .leading, spacing: 5) {
                             
@@ -78,12 +78,12 @@ extension LatestNewsView {
                             }
                         }
                         
+                        Spacer()
                         Text(news.title)
                             .font(.headline)
                             .fontWeight(.medium)
                             .foregroundColor(Color.theme.SubText)
-                        
-                        Spacer()
+                            .padding(.bottom)
                     }
                     .padding(.top,10)
                     

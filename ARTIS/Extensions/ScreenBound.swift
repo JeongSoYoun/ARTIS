@@ -10,7 +10,7 @@ import SwiftUI
 
 extension View {
     
-    func getScreenBound() -> CGRect {
+    func getScreenWidthBound() -> CGRect {
         
         return UIScreen.main.bounds
     }
