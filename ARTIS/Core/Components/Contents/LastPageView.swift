@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ExhibitionLastPageView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var vm: LastPageViewModel
     @StateObject var imageVM: NewsImageViewModel
+    @State private var showPurchaseView: Bool = false
     
     private let news: News
     private let collection: String
@@ -21,12 +23,17 @@ struct ExhibitionLastPageView: View {
         self.news = news
         self.collection = collection
         self.vm = LastPageViewModel(news: news)
-        _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
     }
     
     var body: some View {
         
         exhibitionLastPageView
+            .sheet(isPresented: $showPurchaseView) {
+                
+            } content: {
+                purchaseView(isPresented: $showPurchaseView)
+            }
     }
 }
 
@@ -48,15 +55,19 @@ extension ExhibitionLastPageView {
                 
                 VStack {
                     
-                    Rectangle()
-                        .frame(height: UIScreen.main.bounds.height/10)
-                        .foregroundColor(Color.theme.background)
-                }
-                
-                Spacer()
-                
-                VStack {
-                    
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            
+                            Image(systemName: "xmark")
+                                .foregroundColor(Color.theme.accent)
+                        }
+                    }
+
                     // header
                     VStack(spacing: 5) {
                         
@@ -195,6 +206,10 @@ extension ExhibitionLastPageView {
                                                     .fontWeight(.bold)
                                                     .foregroundColor(Color.white)
                                                     .padding()
+                                                    .onTapGesture {
+                                                        
+                                                        self.showPurchaseView.toggle()
+                                                    }
                                             }
                                             
                                             Spacer()

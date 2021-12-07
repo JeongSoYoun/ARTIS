@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State var searchView: String = ""
-    @State var isHide: Bool = false
+    @Binding var searchText: String
     @ObservedObject var vm: HomeViewModel = HomeViewModel()
     
     var body: some View {
@@ -19,10 +18,7 @@ struct SearchView: View {
             
             searchBarView
             
-            ScrollView {
-                
-                newsView
-            }
+            newsView
         }
         .navigationTitle("검색하기")
     }
@@ -31,7 +27,7 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         
-        SearchView()
+        SearchView(searchText: .constant(""))
     }
 }
 
@@ -41,26 +37,34 @@ extension SearchView {
         
         HStack {
             
-            ZStack {
-                
-                Rectangle()
-                    .frame(width:UIScreen.main.bounds.width - 30, height: 50)
-                    .cornerRadius(10)
-                    .foregroundColor(Color.gray.opacity(0.2))
-                
-                HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(searchText.isEmpty ? Color.gray.opacity(0.5) : Color.theme.accent)
+            
+            TextField("발매 정보, 전시회, 브랜드 검색하기", text: $searchText)
+                .foregroundColor(Color("myColor"))
+                .overlay(
                     
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color.gray.opacity(0.5))
+                    Image(systemName: "xmark.circle.fill")
+                        .padding()
+                        .offset(x: 10)
+                        .opacity(searchText.isEmpty ? 0.0 : 1.0)
+                        .onTapGesture {
+                            
+                            UIApplication.shared.endEditing()
+                            searchText = ""
+                        }
                     
-                    TextField("발매 정보, 전시회, 브랜드 검색하기", text: $searchView)
-                        .foregroundColor(Color("myColor"))
-                }.padding()
-                
-            }
-            .padding(.horizontal)
-        }.padding()
-        .padding(.top,20)
+                    ,alignment: .trailing
+                )
+        }
+        .padding()
+        .background(
+            
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.gray.opacity(0.1))
+                .shadow(color: Color.theme.MainColor.opacity(0.2), radius: 10, x: 0, y: 0)
+        )
+        .padding()
     }
     
     private var keywordView: some View {
@@ -73,7 +77,6 @@ extension SearchView {
                     .font(.title2)
                     .fontWeight(.bold)
             }
-            .padding(.bottom,20)
             
             ForEach(vm.all_news) { news in
                     
@@ -89,23 +92,24 @@ extension SearchView {
     
     private var newsView: some View {
         
-        VStack {
+        ScrollView {
             
-            HStack() {
+            VStack {
                 
-                Text("트렌드 소식")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding()
+                HStack() {
+                    
+                    Text("트렌드 소식")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Spacer()
+                }
                 
-                Spacer()
-            }
-            .padding(.bottom,20)
-            .padding(.horizontal)
-            
-            ForEach(vm.all_news) { news in
-                
-                LatestNewsView(news: news)
+                ForEach(vm.all_news) { news in
+                    
+                    LatestNewsView(news: news)
+                }
             }
         }
     }

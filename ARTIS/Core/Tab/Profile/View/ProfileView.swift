@@ -90,7 +90,7 @@ extension ProfileView {
             Spacer()
             
             Image(systemName: "plus.circle")
-                .foregroundColor(Color("myColr"))
+                .foregroundColor(Color("myColor"))
                 .onTapGesture {
                     
                     //do something. add exhibition photo

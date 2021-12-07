@@ -13,7 +13,7 @@ struct NewsImageView: View {
     
     init(news: News) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
     }
     
     var body: some View {

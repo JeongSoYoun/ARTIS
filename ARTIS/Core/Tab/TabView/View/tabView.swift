@@ -5,6 +5,7 @@ struct tabView: View {
     
     @State var selectedTab: Int = 0
     @State var isTabShow: Bool = true
+    @ObservedObject var homeVM: HomeViewModel = HomeViewModel()
     
     private let tabVM = tabViewModel()
 
@@ -18,6 +19,7 @@ struct tabView: View {
             
             tabBarView
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
@@ -39,7 +41,7 @@ extension tabView {
                 
             case 0:
                 
-                HomeView(vm: HomeViewModel())
+                HomeView(vm: homeVM)
                 
             case 1:
                 
@@ -47,8 +49,8 @@ extension tabView {
                     .navigationTitle("카드 메거진 🎃")
             
             case 2:
-                
-                SearchView()
+        
+                SearchView(searchText: $homeVM.searchText)
                     .navigationTitle("검색하기")
 
             default:

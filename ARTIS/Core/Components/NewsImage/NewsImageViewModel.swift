@@ -14,6 +14,7 @@ class NewsImageViewModel: ObservableObject {
 
     @Published var coverImage: UIImage? = nil
     @Published var contentsImages: UIImage? = nil
+    @Published var nextConetntsImage: UIImage? = nil
     @Published var isLoading: Bool = false
     @Published var isContentsLoading: Bool = false
     
@@ -21,10 +22,10 @@ class NewsImageViewModel: ObservableObject {
     private let DataService: NewsImageDataService // communication part
     private var cancellable = Set<AnyCancellable>()
     
-    init(news: News) {
+    init(news: News, cache_dir: String) {
         
         self.news = news
-        self.DataService = NewsImageDataService(news: news)
+        self.DataService = NewsImageDataService(news: news, cache_dir: cache_dir)
         self.isLoading = true
         self.isContentsLoading = true
         

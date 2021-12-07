@@ -14,7 +14,7 @@ struct MainNewsImageView: View {
     
     init(news: News) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
         self.newsTitle = news.title
     }
     
@@ -29,12 +29,12 @@ struct MainNewsImageView: View {
                     .aspectRatio(CGSize(width: 1.6, height: 1.2 ), contentMode: .fit)
                     .overlay(
                         
-                        Color.black.opacity(0.6)
+                        Color.black.opacity(0.4)
                     )
-                    .cornerRadius(20)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 
                 Text(newsTitle)
-                    .font(.footnote)
+                    .font(.subheadline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
             }
