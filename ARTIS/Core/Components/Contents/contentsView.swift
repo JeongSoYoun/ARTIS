@@ -14,6 +14,7 @@ struct contentsView: View {
     @State private var touch_loc: CGPoint = .zero
     @State private var contents_num: Int = 1
     @State private var offset: CGSize = .zero
+    @State private var isTitleShow: Bool = false
     
     private let news: News
     private let screen_width: CGFloat = UIScreen.main.bounds.width/2
@@ -76,6 +77,21 @@ extension contentsView {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
+                    .overlay (
+                    
+                        title
+                        
+                        ,alignment: .leading
+                    )
+                    .onAppear {
+                        
+                        withAnimation(.spring()) {
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                                self.isTitleShow = true
+                            }
+                        }
+                    }
                 
                 VStack {
                     
@@ -243,6 +259,38 @@ extension contentsView {
         let percentage = (currentOffset/max)
         
         return 1.0 - (percentage) * 0.2
+    }
+    
+    @ViewBuilder
+    private var title: some View {
+        
+        if contents_num == 1 {
+            
+            VStack(alignment: .trailing, spacing: 0) {
+                
+                Text(news.title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .opacity(isTitleShow ? 1.0 : 0.0)
+                
+                HStack {
+                    
+                    Image(systemName: "eye")
+                        .foregroundColor(.white)
+                        .opacity(isTitleShow ? 1.0 : 0.0)
+                    
+                    Text("\(news.read)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .opacity(isTitleShow ? 1.0 : 0.0)
+                }
+            }
+            .transition(.move(edge:.bottom))
+            .animation(.easeInOut,value: UUID())
+            .padding(.horizontal)
+        }
     }
 }
 

@@ -1,13 +1,13 @@
 
 import Foundation
 
-class tabViewModel {
+class TabViewModel {
     
-    var tabItemList: [tabModel] = [
+    var Item: [tab] = [
         
-        tabModel(tabItemImage: "flame", tabItemText: "인사이트"),
-        tabModel(tabItemImage: "rectangle.portrait.on.rectangle.portrait", tabItemText: "메거진"),
-        tabModel(tabItemImage: "magnifyingglass", tabItemText: "검색하기"),
-        tabModel(tabItemImage: "person", tabItemText: "프로필")
+        tab(image: "flame", name: "인사이트"),
+        tab(image: "rectangle.portrait.on.rectangle.portrait", name: "메거진"),
+        tab(image: "magnifyingglass", name: "검색하기"),
+        tab(image: "person", name: "프로필")
     ]
 }

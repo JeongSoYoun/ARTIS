@@ -5,19 +5,18 @@ struct tabView: View {
     
     @State var selectedTab: Int = 0
     @State var isTabShow: Bool = true
-    @ObservedObject var homeVM: HomeViewModel = HomeViewModel()
     
-    private let tabVM = tabViewModel()
+    private let vm: TabViewModel = TabViewModel()
 
     var body: some View {
         
         VStack(spacing:0) {
             
-            tabSwitchView
+            TabSwitchView
             
             Divider()
             
-            tabBarView
+            TabBarView
         }
         .ignoresSafeArea(.keyboard)
     }
@@ -33,7 +32,7 @@ struct tabView_Previews: PreviewProvider {
 
 extension tabView {
     
-    private var tabSwitchView: some View {
+    private var TabSwitchView: some View {
         
         ZStack {
             
@@ -41,16 +40,16 @@ extension tabView {
                 
             case 0:
                 
-                HomeView(vm: homeVM)
+                HomeView()
                 
             case 1:
                 
-                MegazineView(megazineVM: MegazineViewModel())
+                MegazineView()
                     .navigationTitle("카드 메거진 🎃")
             
             case 2:
         
-                SearchView(searchText: $homeVM.searchText)
+                SearchView()
                     .navigationTitle("검색하기")
 
             default:
@@ -60,30 +59,30 @@ extension tabView {
         }
     }
     
-    private var tabBarView: some View {
+    private var TabBarView: some View {
         
         HStack(spacing: 20) {
             
-            ForEach(0 ..< 4 , id: \.self) { index in
+            ForEach(0 ..< 4 , id: \.self) { (tag) in
                 
                 Spacer()
                 
                 VStack(spacing: 5) {
                     
-                    Image(systemName: tabVM.tabItemList[index].tabItemImage)
+                    Image(systemName: vm.Item[tag].image)
                         .font(.system(size: 15,
                                       weight: .regular,
                                       design: .default))
-                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                        .foregroundColor(selectedTab == tag ? Color("myColor") : Color.theme.SubText)
                     
-                    Text(tabVM.tabItemList[index].tabItemText)
+                    Text(vm.Item[tag].name)
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(selectedTab == index ? Color("myColor") : Color.theme.SubText)
+                        .foregroundColor(selectedTab == tag ? Color("myColor") : Color.theme.SubText)
                 }
                 .onTapGesture {
                     
-                    self.selectedTab = index
+                    self.selectedTab = tag
                 }
             }
             

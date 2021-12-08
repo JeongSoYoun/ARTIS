@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LatestNewsView: View {
+struct NewsRowView: View {
     
     let news: News
     
@@ -23,17 +23,17 @@ struct LatestNewsView_Previews: PreviewProvider {
         
         Group {
             
-            LatestNewsView(news: dev.news)
+            NewsRowView(news: dev.news)
                 .previewLayout(.sizeThatFits)
             
-            LatestNewsView(news: dev.news)
+            NewsRowView(news: dev.news)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }
     }
 }
 
-extension LatestNewsView {
+extension NewsRowView {
     
     private var newsView: some View {
         

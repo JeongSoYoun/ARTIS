@@ -31,7 +31,9 @@ struct ExhibitionLastPageView: View {
         exhibitionLastPageView
             .sheet(isPresented: $showPurchaseView) {
                 
+                vm.getInfo(collection: collection)
             } content: {
+                
                 purchaseView(isPresented: $showPurchaseView)
             }
     }
@@ -65,8 +67,10 @@ extension ExhibitionLastPageView {
                             
                             Image(systemName: "xmark")
                                 .foregroundColor(Color.theme.accent)
+                                .font(.title2)
                         }
                     }
+                    .padding(.top)
 
                     // header
                     VStack(spacing: 5) {
@@ -315,13 +319,13 @@ extension ExhibitionLastPageView {
                     }
                     .padding(.top)
                 }
-                .padding(.horizontal)
+                .padding()
             } else {
                 
                 ProgressView()
             }
         }
-        .padding(.top)
+        .padding(.top,20)
         .onAppear {
             
             vm.getInfo(collection: collection)

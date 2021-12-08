@@ -11,6 +11,8 @@ struct contentsNavigationView: View {
     
     @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @State private var tag: Int = 0
+    @State private var isContentShow: Bool = false
+    
     private let all_news: [News]
     private let news_type: String
     
@@ -30,13 +32,19 @@ struct contentsNavigationView: View {
                 
                 ForEach(0 ..< all_news.count) { index in
                     
-                    NavigationLink {
-                        contentsView(news: all_news[index])
+                    MainNewsImageView(news: all_news[index])
+                        .tag(index)
+                        .onTapGesture(perform: {
                             
-                    } label: {
-                        MainNewsImageView(news: all_news[index])
-                            .tag(index)
-                    }
+                            self.isContentShow.toggle()
+                        })
+                        .background(
+                            NavigationLink(isActive: $isContentShow, destination: {
+                                contentsView(news: all_news[index])
+                            }, label: {
+                                EmptyView()
+                            })
+                        )
                 }
             }
             .aspectRatio(CGSize(width: 1.6, height: 1.2), contentMode: .fit)
@@ -59,7 +67,7 @@ struct contentsNavigationView: View {
                 
                 ForEach(all_news) { news in
                     
-                    LatestNewsView(news: news)
+                    NewsRowView(news: news)
                 }
             }
         }

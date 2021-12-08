@@ -125,10 +125,3 @@ extension HomeView {
         }
     }
 }
-
-    // return CarouselView(itemHeight: 200, views: vm.AnyViewList, title: vm.titleList)
-
-//CarouselBuilder(anyViewArr: anyViewArr, titleArr: titleArr) { anyViewArr, titleArr in
-//
-//    CarouselView(itemHeight: 200, views: anyViewArr, title: titleArr)
-//}

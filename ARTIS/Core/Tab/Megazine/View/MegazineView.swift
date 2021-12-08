@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MegazineView: View {
     
-    @StateObject var megazineVM: MegazineViewModel
+    @ObservedObject var vm: MegazineViewModel = MegazineViewModel()
     
     var body: some View {
         
@@ -15,7 +15,7 @@ struct MegazineView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        MegazineView(megazineVM: MegazineViewModel())
+        MegazineView()
             .navigationTitle("카드 메거진")
     }
 }
@@ -28,11 +28,8 @@ extension MegazineView {
             
             Spacer()
             
-            ZStack {
-                
-                CardMegazineView(megazines: megazineVM.all_meagazines)
-            }
-            .frame(maxHeight: (UIScreen.main.bounds.height)/2)
+            Text("megazine View")
+                .font(.largeTitle)
             
             Spacer()
         }

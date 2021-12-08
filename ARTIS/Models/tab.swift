@@ -1,8 +1,8 @@
 
 import Foundation
 
-struct tabModel {
+struct tab {
     
-    let tabItemImage: String
-    let tabItemText: String
+    let image: String
+    let name: String
 }
