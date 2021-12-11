@@ -14,7 +14,6 @@ class NewsImageViewModel: ObservableObject {
 
     @Published var coverImage: UIImage? = nil
     @Published var contentsImages: UIImage? = nil
-    @Published var nextConetntsImage: UIImage? = nil
     @Published var isLoading: Bool = false
     @Published var isContentsLoading: Bool = false
     

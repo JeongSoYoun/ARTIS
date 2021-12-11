@@ -11,6 +11,7 @@ import Combine
 class SearchViewModel: ObservableObject {
     
     @Published var filteredNews: [News] = []
+    @Published var trendNews: [News] = []
     @Published var textSearch: String = ""
     
     private let DataService: NewsDataService = NewsDataService()
@@ -21,7 +22,7 @@ class SearchViewModel: ObservableObject {
         addSubscriber()
     }
     
-    func addSubscriber() {
+    private func addSubscriber() {
         
         $textSearch
             .combineLatest(DataService.$all_news)
@@ -33,13 +34,21 @@ class SearchViewModel: ObservableObject {
                 self?.filteredNews = returnedFilteredNews
             }
             .store(in: &cancellables)
+        
+        DataService.$main_news
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] returnedTrendNews in
+                
+                self?.trendNews = returnedTrendNews
+            }
+            .store(in: &cancellables)
     }
 
     private func filter(text: String, all_news: [News]) -> [News] {
         
         guard !text.isEmpty else {
             
-            return all_news
+            return []
         }
         
         return all_news.filter { (news) -> Bool in

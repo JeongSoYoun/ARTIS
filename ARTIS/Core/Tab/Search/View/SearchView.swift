@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SearchView: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var vm: SearchViewModel = SearchViewModel()
+//    @StateObject var imageVM: NewsImageViewModel
     @State private var isSearching: Bool = false
     
     var body: some View {
@@ -17,6 +19,8 @@ struct SearchView: View {
         VStack{
             
             searchBarView
+            
+            Divider()
             
             if isSearching {
                 
@@ -75,8 +79,7 @@ extension SearchView {
             .background(
                 
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.gray.opacity(0.1))
-                    .shadow(color: Color.theme.MainColor.opacity(0.2), radius: 10, x: 0, y: 0)
+                    .fill(Color.theme.newsColor)
             )
             .padding()
             
@@ -84,6 +87,7 @@ extension SearchView {
                 
                 Text("cancel")
                     .foregroundColor(Color.theme.accent)
+                    .fontWeight(.semibold)
                     .transition(.move(edge: .trailing))
                     .onTapGesture {
                         UIApplication.shared.endEditing()
@@ -99,11 +103,11 @@ extension SearchView {
         
         ScrollView {
             
-            LazyVStack {
+            VStack(alignment: .leading) {
                 
                 HStack {
                     
-                    Text("트렌드 소식")
+                    Text("검색 키워드  👀")
                         .font(.title2)
                         .fontWeight(.bold)
                         .padding()
@@ -111,10 +115,61 @@ extension SearchView {
                     Spacer()
                 }
                 
-                ForEach(vm.filteredNews) { news in
+                VStack {
                     
-                    NewsRowView(news: news)
+                    Text("a")
+                        .foregroundColor(Color.theme.accent)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                    Text("b")
+                        .foregroundColor(Color.theme.accent)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                    Text("c")
+                        .foregroundColor(Color.theme.accent)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
                 }
+                .padding(.horizontal)
+            }
+            
+            HStack {
+                
+                Text("트렌드 뉴스  🔥")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                Spacer()
+            }
+            
+            ScrollView(.horizontal,showsIndicators: false) {
+                
+                LazyHStack {
+                    
+                    ForEach(vm.trendNews) { news in
+                        
+                        let imageVM = NewsImageViewModel(news: news, cache_dir: "cover")
+                        
+                        if let image = imageVM.coverImage {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(CGSize(width: 1.2, height: 1.6), contentMode: .fit)
+                                .border(colorScheme == .light ? Color("myColor") : .white, width: 1)
+                                .cornerRadius(20)
+                                .padding(.horizontal)
+                            
+                        } else if imageVM.isLoading {
+                            
+                            ProgressView()
+                        } else {
+                            
+                            Text("Error Loading Images! ⚠️")
+                        }
+                    }
+                }
+                .frame(height: 200)
             }
         }
     }
@@ -123,14 +178,23 @@ extension SearchView {
         
         ScrollView {
             
-            HStack {
+            if vm.textSearch.isEmpty {
                 
-                Text("최근 검색")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding()
+                HStack {
+                    
+                    Text("최근 검색")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Spacer()
+                }
+            } else {
                 
-                Spacer()
+                ForEach(vm.filteredNews) { news in
+                    
+                    NewsRowView(news: news)
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ import Foundation
 struct LaunchInfo: Identifiable {
     
     let id: String
-    let period: [String:Int]
+    let period: [String:Double]
     let price: Int
     let title: String
     let web: [String:(period: Double, address: String)]

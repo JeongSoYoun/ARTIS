@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExhibitionLastPageView: View {
+struct LastPageView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -16,26 +16,43 @@ struct ExhibitionLastPageView: View {
     @State private var showPurchaseView: Bool = false
     
     private let news: News
-    private let collection: String
+    private let db_collection: String
     
-    init(news: News, collection: String) {
+    init(news: News, db_collection: String) {
         
         self.news = news
-        self.collection = collection
+        self.db_collection = db_collection
         self.vm = LastPageViewModel(news: news)
         _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
     }
     
     var body: some View {
         
-        exhibitionLastPageView
-            .sheet(isPresented: $showPurchaseView) {
-                
-                vm.getInfo(collection: collection)
-            } content: {
-                
-                purchaseView(isPresented: $showPurchaseView)
-            }
+        switch db_collection {
+            
+        case "ex_info":
+            ExhibitionLastPageView
+                .sheet(isPresented: $showPurchaseView) {
+                    
+                    vm.getInfo(db_collection)
+                } content: {
+                    
+                    PurchaseView(isPresented: $showPurchaseView)
+                }
+            
+        case "launch_info":
+            Text("발매정보")
+                .onTapGesture {
+                    
+                    presentationMode.wrappedValue.dismiss()
+                } // View need to be handeld
+        default:
+            Text("브랜드")
+                .onTapGesture {
+                    
+                    presentationMode.wrappedValue.dismiss()
+                } // View need to be handeld
+        }
     }
 }
 
@@ -43,15 +60,15 @@ struct lastPageView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        ExhibitionLastPageView(news: dev.news, collection: "ex_info")
+        LastPageView(news: dev.news, db_collection: "ex_info")
     }
 }
 
-extension ExhibitionLastPageView {
+extension LastPageView {
     
-    private var exhibitionLastPageView: some View {
+    private var ExhibitionLastPageView: some View {
         
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             
             if let info = vm.ex_info {
                 
@@ -328,7 +345,7 @@ extension ExhibitionLastPageView {
         .padding(.top,20)
         .onAppear {
             
-            vm.getInfo(collection: collection)
+            vm.getInfo(db_collection)
         }
     }
 }

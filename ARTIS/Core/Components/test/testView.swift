@@ -9,37 +9,40 @@ import SwiftUI
 
 struct testView: View {
     
-    @ObservedObject private var vm: HomeViewModel = HomeViewModel()
+    @State private var isShow: Bool = false
+    @Namespace var namespace
     
     var body: some View {
         
-        ScrollView {
+        VStack {
             
-            VStack {
+            if !isShow {
                 
-                Text("Test View")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                ForEach(vm.main_news) { (news) in
-                    
-                    HStack {
-                        
-                        Text(news.title)
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                        Spacer()
-                        Text(news.id)
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                        Spacer()
-                        Text(news.category)
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                Rectangle()
+                    .cornerRadius(20)
+                    .matchedGeometryEffect(id: "rect", in: namespace)
+                    .frame(width: 50, height: 50)
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            isShow.toggle()
+                        }
                     }
-                    .padding()
-                }
+                
+            } else {
+                
+                Rectangle()
+                    .cornerRadius(20)
+                    .matchedGeometryEffect(id: "tri", in: namespace)
+                    .frame(maxWidth: .infinity, maxHeight: 300)
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            isShow.toggle()
+                        }
+                    }
             }
+        }
+        .onAppear {
+            
         }
     }
 }

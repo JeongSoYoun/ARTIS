@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct contentsView: View {
+struct ContentsView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var vm: NewsImageViewModel
@@ -18,10 +18,13 @@ struct contentsView: View {
     
     private let news: News
     private let screen_width: CGFloat = UIScreen.main.bounds.width/2
+    private let category: String
     
-    init(news: News) {
+    init(news: News, of category: String) {
         
         self.news = news
+        self.category = category
+        
         _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "contents"))
     }
     
@@ -42,7 +45,7 @@ struct contentsView: View {
                             .fontWeight(.bold)
                     )
                 
-                contentPageView
+                ContentPageView
                     .navigationBarHidden(true)
                     .navigationBarBackButtonHidden(true)
 
@@ -50,8 +53,18 @@ struct contentsView: View {
 
         } else {
             
-            ExhibitionLastPageView(news: news, collection: "ex_info")
-                .edgesIgnoringSafeArea(.all)
+            switch category {
+                
+            case "전시회":
+                LastPageView(news: news, db_collection: "ex_info")
+                    .edgesIgnoringSafeArea(.all)
+                
+            case "발매정보":
+                LastPageView(news: news, db_collection: "launch_info")
+                
+            default:
+                LastPageView(news: news, db_collection: "brand_info")
+            }
         }
     }
 }
@@ -60,14 +73,14 @@ struct testImageView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        contentsView(news: dev.news)
+        ContentsView(news: dev.news, of: "전시회")
     }
 }
 
-extension contentsView {
+extension ContentsView {
     
     @ViewBuilder
-    private var contentPageView: some View {
+    private var ContentPageView: some View {
         
         if let image = vm.contentsImages {
             
@@ -79,7 +92,7 @@ extension contentsView {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                     .overlay (
                     
-                        title
+                        TitleAppearView
                         
                         ,alignment: .leading
                     )
@@ -215,6 +228,22 @@ extension contentsView {
         }
     }
     
+    @ViewBuilder
+    private var TitleAppearView: some View {
+        
+        if contents_num == 1 {
+            
+            Text(news.title)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .opacity(isTitleShow ? 1.0 : 0.0)
+                .transition(.move(edge:.bottom))
+                .animation(.easeInOut,value: UUID())
+                .padding(.horizontal)
+        }
+    }
+    
     private func touch_direction() {
         
         if contents_num > 1 {
@@ -259,38 +288,6 @@ extension contentsView {
         let percentage = (currentOffset/max)
         
         return 1.0 - (percentage) * 0.2
-    }
-    
-    @ViewBuilder
-    private var title: some View {
-        
-        if contents_num == 1 {
-            
-            VStack(alignment: .trailing, spacing: 0) {
-                
-                Text(news.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .opacity(isTitleShow ? 1.0 : 0.0)
-                
-                HStack {
-                    
-                    Image(systemName: "eye")
-                        .foregroundColor(.white)
-                        .opacity(isTitleShow ? 1.0 : 0.0)
-                    
-                    Text("\(news.read)")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .opacity(isTitleShow ? 1.0 : 0.0)
-                }
-            }
-            .transition(.move(edge:.bottom))
-            .animation(.easeInOut,value: UUID())
-            .padding(.horizontal)
-        }
     }
 }
 

@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct contentsNavigationView: View {
+struct ContentsNavigationView: View {
     
-    @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    @State private var tag: Int = 0
     @State private var isContentShow: Bool = false
+    @State private var isNewsShow: Bool = false
+    @Namespace private var namespace
     
-    private let all_news: [News]
+    private let news: [News]
     private let news_type: String
     
     init(all_news: [News], news_type: String) {
     
-        self.all_news = all_news
+        self.news = all_news
         self.news_type = news_type
     }
     
@@ -28,51 +28,52 @@ struct contentsNavigationView: View {
             
         case "main":
             
-            TabView(selection: $tag) {
+            TabView {
                 
-                ForEach(0 ..< all_news.count) { index in
+                ForEach(0 ..< news.count, id: \.self) { index in
                     
-                    MainNewsImageView(news: all_news[index])
-                        .tag(index)
+                    MainNewsImageView(news: news[index])
                         .onTapGesture(perform: {
                             
                             self.isContentShow.toggle()
                         })
                         .background(
                             NavigationLink(isActive: $isContentShow, destination: {
-                                contentsView(news: all_news[index])
+                                
+                                ContentsView(news: news[index], of: news[index].category)
+                            }, label: {
+                                EmptyView()
+                            })
+                        )
+                        .padding(.horizontal)
+                }
+            }
+            .tabViewStyle(.page)
+            .aspectRatio(CGSize(width: 1.6, height: 1.2), contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .padding()
+            
+        default: // "all category news"
+            
+            LazyVStack(spacing: 5) {
+                
+                ForEach(0 ..< news.count, id: \.self) { index in
+                    
+                    NewsRowView(news: news[index])
+                        .background(
+                            NavigationLink(isActive: $isNewsShow, destination: {
+                                
+                                ContentsView(news: news[index], of: news[index].category)
                             }, label: {
                                 EmptyView()
                             })
                         )
                 }
             }
-            .aspectRatio(CGSize(width: 1.6, height: 1.2), contentMode: .fit)
-            .tabViewStyle(.page)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding()
-            .onReceive(timer) { _ in
-                
-                withAnimation(.easeInOut(duration: 5)) {
-                    
-                    tag = tag == all_news.count ? 0 : tag + 1
-                }
-            }
-            .shadow(color: Color.theme.accent.opacity(0.3),
-                    radius: 20)
-            
-        default: // "all category news"
-            
-            LazyVStack(spacing: 5) {
-                
-                ForEach(all_news) { news in
-                    
-                    NewsRowView(news: news)
-                }
-            }
         }
     }
 }
+
 //
 //struct mainNewsView_Previews: PreviewProvider {
 //    static var previews: some View {

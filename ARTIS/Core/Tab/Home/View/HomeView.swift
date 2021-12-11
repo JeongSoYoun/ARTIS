@@ -9,7 +9,7 @@ struct HomeView: View {
     
     var body: some View {
           
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             
             VStack {
 
@@ -47,7 +47,7 @@ extension HomeView {
             
             Spacer()
             
-            alarmView(imageName: "bell")
+            AlarmView(imageName: "bell")
                 .padding(.trailing)
         }
         .padding()
@@ -82,11 +82,11 @@ extension HomeView {
             switch selected {
 
             case "발매정보":
-                contentsNavigationView(all_news: filterNews, news_type: "main")
+                ContentsNavigationView(all_news: filterNews, news_type: "main")
             case "브랜드":
-                contentsNavigationView(all_news: filterNews, news_type: "main")
+                ContentsNavigationView(all_news: filterNews, news_type: "main")
             default: // "전시회"
-                contentsNavigationView(all_news: filterNews, news_type: "main")
+                ContentsNavigationView(all_news: filterNews, news_type: "main")
             }
 
         } else {
@@ -102,25 +102,26 @@ extension HomeView {
             
             HStack {
                 
-                Text("새로운 소식")
+                Text("새로운 소식  🚀")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(Color.theme.accent)
                 
                 Spacer()
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom)
             
             let filterNews = vm.all_news.filter{$0.category == selected}
             
             switch selected {
                 
             case "발매정보":
-                contentsNavigationView(all_news: filterNews, news_type: "all")
+                ContentsNavigationView(all_news: filterNews, news_type: "all")
             case "브랜드":
-                contentsNavigationView(all_news: filterNews, news_type: "all")
+                ContentsNavigationView(all_news: filterNews, news_type: "all")
             default: // "전시회"
-                contentsNavigationView(all_news: filterNews, news_type: "all")
+                ContentsNavigationView(all_news: filterNews, news_type: "all")
             }
         }
     }

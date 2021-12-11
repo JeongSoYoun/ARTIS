@@ -81,8 +81,8 @@ extension NewsRowView {
                         Spacer()
                         Text(news.title)
                             .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(Color.theme.SubText)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.theme.accent)
                             .padding(.bottom)
                     }
                     .padding(.top,10)

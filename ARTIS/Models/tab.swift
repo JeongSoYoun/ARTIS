@@ -3,6 +3,7 @@ import Foundation
 
 struct tab {
     
-    let image: String
+    let defaultImage: String
+    let selectedImage: String
     let name: String
 }

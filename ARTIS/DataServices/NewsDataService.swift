@@ -8,28 +8,13 @@
 import Foundation
 import Firebase
 
-enum ErrorType: Error {
-    
-    case unknown
-    
-    case noData
-    
-    var discription: String? {
-        
-        switch self {
-            
-        case .unknown: return "Error occured"
-            
-        case .noData: return "No Data in Firestore"
-        }
-    }
-}
-
 class NewsDataService {
     
     @Published var all_news: [News] = []
     @Published var main_news: [News] = []
-    @Published var exhibionInfo: ExhibionInfo? = nil
+    @Published var exhibionInfo: ExhibitionInfo? = nil
+    @Published var launchInfo: LaunchInfo? = nil
+    @Published var brandInfo: BrandInfo? = nil
     
     private let collections: [String] = ["launch","brand","exhibition"]
     
@@ -63,13 +48,24 @@ class NewsDataService {
         }
     }
     
-    func getInfo(collection: String, news: News) {
+    func getInfo(_ db_collection: String, _ news: News) {
         
-        let docRef = infoRef(collection: collection, id: news.id)
+        let docRef = infoRef(collection: db_collection, id: news.id)
         
-        NetworkManager.downloadInfoData(ref: docRef) { returnedExhibionInfo in
+        switch db_collection {
             
-            self.exhibionInfo = returnedExhibionInfo
+        case "ex_info":
+            NetworkManager.downloadExhibitionInfo(ref: docRef) { info in
+                self.exhibionInfo = info
+            }
+        case "launch_info":
+            NetworkManager.downloadLaunchInfo(ref: docRef) { info in
+                self.launchInfo = info
+            }
+        default:
+            NetworkManager.downloadBrandInfo(ref: docRef) { info in
+                self.brandInfo = info
+            }
         }
     }
     

@@ -7,14 +7,13 @@
 
 import Foundation
 
-struct ExhibionInfo: Identifiable {
+struct ExhibitionInfo: Identifiable {
     
     let id: String
     let artist: String
     let isProgress: Bool
     let location: String
     let period: [String:Double]
-    let review: [String:String]
     let score: Double
     let sns: String
     let title: String

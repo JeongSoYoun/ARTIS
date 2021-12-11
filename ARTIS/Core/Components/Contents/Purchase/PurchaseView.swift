@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct purchaseView: View {
+struct PurchaseView: View {
     
     @Binding var isPresented: Bool
     
@@ -35,6 +35,6 @@ struct purchaseView: View {
 
 struct purchaseView_Previews: PreviewProvider {
     static var previews: some View {
-        purchaseView(isPresented: .constant(true))
+        PurchaseView(isPresented: .constant(true))
     }
 }

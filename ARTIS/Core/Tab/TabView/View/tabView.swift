@@ -69,16 +69,16 @@ extension tabView {
                 
                 VStack(spacing: 5) {
                     
-                    Image(systemName: vm.Item[tag].image)
-                        .font(.system(size: 15,
-                                      weight: .regular,
+                    Image(systemName: selectedTab == tag ? vm.Item[tag].selectedImage : vm.Item[tag].defaultImage)
+                        .font(.system(size: 20,
+                                      weight: selectedTab == tag ? .bold : .medium,
                                       design: .default))
-                        .foregroundColor(selectedTab == tag ? Color("myColor") : Color.theme.SubText)
+                        .foregroundColor(Color.theme.accent)
                     
                     Text(vm.Item[tag].name)
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(selectedTab == tag ? Color("myColor") : Color.theme.SubText)
+                        .foregroundColor(Color.theme.accent)
                 }
                 .onTapGesture {
                     

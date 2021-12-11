@@ -46,9 +46,9 @@ class NetworkManager {
         }
     }
     
-    static func downloadInfoData(ref: DocumentReference, completion: @escaping (ExhibionInfo) -> Void) {
+    static func downloadExhibitionInfo (ref: DocumentReference, completion: @escaping (ExhibitionInfo?) -> Void) {
         
-        var data: ExhibionInfo? = nil
+        var data: ExhibitionInfo? = nil
         
         DispatchQueue.global(qos: .default).async {
             
@@ -62,22 +62,21 @@ class NetworkManager {
                         let isProgress = document["isProgress"] as? Bool ?? false
                         let location = document["location"] as? String ?? ""
                         let period = document["period"] as? [String:Double] ?? ["":0.0]
-                        let review = document["review"] as? [String:String] ?? ["":""]
-                        let score = document["score"] as? Double ?? 0.0 
+                        let score = document["score"] as? Double ?? 0.0
                         let sns = document["sns"] as? String ?? ""
                         let title = document["title"] as? String ?? ""
                         
-                        data = ExhibionInfo(id: document.documentID, artist: artist, isProgress: isProgress, location: location, period: period, review: review, score: score, sns: sns, title: title)
+                        data = ExhibitionInfo(id: document.documentID, artist: artist, isProgress: isProgress, location: location, period: period, score: score, sns: sns, title: title)
                     }
                     
-                    if let data = data {
+                    guard let data = data
+                    else {
                         
-                        completion(data)
-                    } else {
-                        
-                        print("no data in document")
+                        print("no data in document, ex_info")
+                        return
                     }
                     
+                    completion(data)
                 } else {
                     
                     print("error downloading data")
@@ -86,6 +85,48 @@ class NetworkManager {
         }
     }
     
+    static func downloadLaunchInfo (ref: DocumentReference, completion: @escaping (LaunchInfo?) -> Void) {
+        
+        var data: LaunchInfo? = nil
+        
+        DispatchQueue.global(qos: .default).async {
+            
+            ref.getDocument { document, error in
+                
+                if error == nil {
+                    
+                    if let document = document, document.exists {
+                        
+                        let period = document["period"] as? [String:Double] ?? ["":0.0]
+                        let price = document["price"] as? Int ?? 0
+                        let title = document["title"] as? String ?? ""
+                        let web = document["web"] as? [String:(Double,String)] ?? ["":(0.0,"")]
+                        
+                        data = LaunchInfo(id: document.documentID, period: period, price: price, title: title, web: web)
+                    }
+                }
+                
+                guard let data = data
+                else {
+                    
+                    print("no data in document, launch info")
+                    return
+                }
+                completion(data)
+            }
+        }
+    }
+    
+    static func downloadBrandInfo (ref: DocumentReference, completion: @escaping (BrandInfo?) -> Void) {
+        
+        let data: BrandInfo? = nil
+        
+        DispatchQueue.global(qos: .default).async {
+            
+            completion(data)
+        }
+    } // need to handle!
+     
     static func downloadCoverImage(ref: StorageReference, completion: @escaping (Data) -> Void) {
         
         DispatchQueue.global(qos: .background).async {
@@ -116,7 +157,7 @@ class NetworkManager {
             
             let imageRef = ref.child("contents_\(num).png")
             
-            imageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            imageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
                 
                 if let error = error {
                     

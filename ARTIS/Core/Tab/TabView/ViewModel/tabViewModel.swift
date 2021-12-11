@@ -5,9 +5,9 @@ class TabViewModel {
     
     var Item: [tab] = [
         
-        tab(image: "flame", name: "인사이트"),
-        tab(image: "rectangle.portrait.on.rectangle.portrait", name: "메거진"),
-        tab(image: "magnifyingglass", name: "검색하기"),
-        tab(image: "person", name: "프로필")
+        tab(defaultImage: "flame", selectedImage: "flame.fill" ,name: "인사이트"),
+        tab(defaultImage: "rectangle.portrait.on.rectangle.portrait", selectedImage: "rectangle.portrait.on.rectangle.portrait.fill",name: "메거진"),
+        tab(defaultImage: "magnifyingglass", selectedImage: "magnifyingglass" ,name: "검색하기"),
+        tab(defaultImage: "person", selectedImage: "person.fill" ,name: "프로필")
     ]
 }
