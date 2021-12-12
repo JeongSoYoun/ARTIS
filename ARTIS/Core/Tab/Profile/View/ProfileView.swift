@@ -50,7 +50,7 @@ extension ProfileView {
                     
                     Circle()
                         .frame(width: UIScreen.main.bounds.width/4+3, height: UIScreen.main.bounds.width/4+3)
-                        .foregroundColor(Color("myColor"))
+                        .foregroundColor(Color.theme.MainColor)
                     
                     Image("me")
                         .resizable()
@@ -90,7 +90,7 @@ extension ProfileView {
             Spacer()
             
             Image(systemName: "plus.circle")
-                .foregroundColor(Color("myColor"))
+                .foregroundColor(Color.theme.MainColor)
                 .onTapGesture {
                     
                     //do something. add exhibition photo
@@ -111,7 +111,7 @@ extension ProfileView {
                             
                             Circle()
                                 .frame(width: UIScreen.main.bounds.width/7+3, height: UIScreen.main.bounds.width/7+3)
-                                .foregroundColor(Color("myColor"))
+                                .foregroundColor(Color.theme.MainColor)
                                 .overlay(
                                     
                                     Image(ex)

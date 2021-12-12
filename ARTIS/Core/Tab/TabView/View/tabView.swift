@@ -76,7 +76,7 @@ extension tabView {
                 VStack(spacing: 5) {
                     
                     Image(systemName: selectedTab == tag ? vm.Item[tag].selectedImage : vm.Item[tag].defaultImage)
-                        .font(.system(size: 20,
+                        .font(.system(size: 15,
                                       weight: selectedTab == tag ? .bold : .medium,
                                       design: .default))
                         .foregroundColor(Color.theme.TextColor)
