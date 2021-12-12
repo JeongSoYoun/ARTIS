@@ -21,7 +21,7 @@ struct ItemBarView: View {
                 Text(item)
                     .font(.subheadline)
                     .fontWeight(.bold)
-                    .foregroundColor(selectedItem == item ? Color.theme.accent : Color.theme.SubText)
+                    .foregroundColor(selectedItem == item ? Color.theme.TextColor : Color.theme.SubText)
                     .padding(.bottom,10)
                 
                 ZStack {
@@ -33,7 +33,7 @@ struct ItemBarView: View {
                     if selectedItem == item {
                         
                         Rectangle()
-                            .fill(Color.theme.accent)
+                            .fill(Color.theme.TextColor)
                             .frame(height: 2)
                             .matchedGeometryEffect(id: "ID", in: animation)
                     }

@@ -82,11 +82,11 @@ extension HomeView {
             switch selected {
 
             case "발매정보":
-                ContentsNavigationView(all_news: filterNews, news_type: "main")
+                mainNewsView(all_news: filterNews)
             case "브랜드":
-                ContentsNavigationView(all_news: filterNews, news_type: "main")
+                mainNewsView(all_news: filterNews)
             default: // "전시회"
-                ContentsNavigationView(all_news: filterNews, news_type: "main")
+                mainNewsView(all_news: filterNews)
             }
 
         } else {
@@ -105,7 +105,7 @@ extension HomeView {
                 Text("새로운 소식  🚀")
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
                 
                 Spacer()
             }
@@ -115,13 +115,13 @@ extension HomeView {
             let filterNews = vm.all_news.filter{$0.category == selected}
             
             switch selected {
-                
+
             case "발매정보":
-                ContentsNavigationView(all_news: filterNews, news_type: "all")
+                NewsView(news: filterNews)
             case "브랜드":
-                ContentsNavigationView(all_news: filterNews, news_type: "all")
+                NewsView(news: filterNews)
             default: // "전시회"
-                ContentsNavigationView(all_news: filterNews, news_type: "all")
+                NewsView(news: filterNews)
             }
         }
     }

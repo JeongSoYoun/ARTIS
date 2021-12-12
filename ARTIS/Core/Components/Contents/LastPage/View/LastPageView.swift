@@ -23,7 +23,7 @@ struct LastPageView: View {
         self.news = news
         self.db_collection = db_collection
         self.vm = LastPageViewModel(news: news)
-        _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
+        _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news))
     }
     
     var body: some View {
@@ -79,11 +79,12 @@ extension LastPageView {
                         Spacer()
                         
                         Button {
+                            imageVM.removeContentsImageFromCache() 
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             
                             Image(systemName: "xmark")
-                                .foregroundColor(Color.theme.accent)
+                                .foregroundColor(Color.theme.TextColor)
                                 .font(.title2)
                         }
                     }
@@ -107,7 +108,7 @@ extension LastPageView {
                                     
                                     Rectangle()
                                         .cornerRadius(20)
-                                        .foregroundColor(Color.theme.accent)
+                                        .foregroundColor(Color.theme.TextColor)
                                         .frame(width: 60, height: 20, alignment: .center)
                                 )
                             
@@ -119,7 +120,7 @@ extension LastPageView {
                             Image(colorScheme == .light ? "insta_light" : "insta_dark")
                                 .resizable()
                                 .frame(width:20,height:20)
-                                .foregroundColor(Color.theme.accent)
+                                .foregroundColor(Color.theme.TextColor)
                             
                             Text(info.sns)
                                 .font(.body)
@@ -255,7 +256,7 @@ extension LastPageView {
                                 } else {
                                     
                                     Image(systemName: "questionMark")
-                                        .foregroundColor(Color.theme.accent)
+                                        .foregroundColor(Color.theme.TextColor)
                                 }
                             }
                             .onAppear {

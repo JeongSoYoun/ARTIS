@@ -10,10 +10,19 @@ import SwiftUI
 struct NewsRowView: View {
     
     let news: News
+    @State private var isContentsShow = false
     
     var body: some View {
         
         newsView
+            .background(
+                
+                NavigationLink (isActive: $isContentsShow, destination: {
+                    ContentsView(news: news, of: news.category)
+                }, label: {
+                    EmptyView()
+                })
+            )
     }
 }
 
@@ -21,15 +30,7 @@ struct LatestNewsView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        Group {
-            
-            NewsRowView(news: dev.news)
-                .previewLayout(.sizeThatFits)
-            
-            NewsRowView(news: dev.news)
-                .previewLayout(.sizeThatFits)
-                .preferredColorScheme(.dark)
-        }
+        NewsRowView(news: dev.news)
     }
 }
 
@@ -39,9 +40,9 @@ extension NewsRowView {
         
         ZStack {
             
-            RoundedRectangle(cornerRadius: 10)
-                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/3.5)
-                .foregroundColor(Color.theme.background)
+            RoundedRectangle(cornerRadius: 20)
+                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/3)
+                .foregroundColor(Color.theme.newsColor)
             
             VStack {
                 
@@ -54,23 +55,23 @@ extension NewsRowView {
                             Text(news.category)
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(Color.theme.accent)
+                                .foregroundColor(Color.theme.TextColor)
                             
                             HStack {
                                 
                                 Text(Date(timeIntervalSince1970: news.createdAt).format)
                                     .font(.caption)
                                     .fontWeight(.semibold)
-                                    .foregroundColor(Color.theme.accent)
+                                    .foregroundColor(Color.theme.TextColor)
                                 
                                 HStack {
                                     Image(systemName: "eye")
                                         .font(.caption)
-                                        .foregroundColor(Color.theme.accent)
+                                        .foregroundColor(Color.theme.TextColor)
                                     
                                     Text(String(news.read))
                                         .font(.caption)
-                                        .foregroundColor(Color.theme.accent)
+                                        .foregroundColor(Color.theme.TextColor)
                                     
                                 }.padding(.horizontal,5)
                                 
@@ -82,7 +83,7 @@ extension NewsRowView {
                         Text(news.title)
                             .font(.headline)
                             .fontWeight(.semibold)
-                            .foregroundColor(Color.theme.accent)
+                            .foregroundColor(Color.theme.TextColor)
                             .padding(.bottom)
                     }
                     .padding(.top,10)
@@ -96,7 +97,7 @@ extension NewsRowView {
                         Spacer()
                     }
                 }
-                .padding(.horizontal,10)
+                .padding(.horizontal,20)
                 .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
             }
         }

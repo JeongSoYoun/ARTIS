@@ -16,15 +16,17 @@ class NewsImageViewModel: ObservableObject {
     @Published var contentsImages: UIImage? = nil
     @Published var isLoading: Bool = false
     @Published var isContentsLoading: Bool = false
+    @Published var contentsBuffer: [UIImage] = []
     
     private let news: News
+    private let cache = LocalFileManager.instance
     private let DataService: NewsImageDataService // communication part
     private var cancellable = Set<AnyCancellable>()
     
-    init(news: News, cache_dir: String) {
+    init(news: News) {
         
         self.news = news
-        self.DataService = NewsImageDataService(news: news, cache_dir: cache_dir)
+        self.DataService = NewsImageDataService(news: news)
         self.isLoading = true
         self.isContentsLoading = true
         
@@ -58,5 +60,18 @@ class NewsImageViewModel: ObservableObject {
     func downloadContentsImage(_ of: Int) {
         
         DataService.downloadContentsImage(of)
+    }
+    
+    func removeContentsImageFromCache() {
+        
+        cache.removeContentsImage(cache_dir: "contents")
+    }
+    
+    func downloadContentBackground(contentNum: Int) {
+        
+        for i in 2...contentNum {
+            
+            DataService.saveContentsAtCacheWhenLoaded(i)
+        }
     }
 }

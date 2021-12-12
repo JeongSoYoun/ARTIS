@@ -9,41 +9,41 @@ import SwiftUI
 
 struct testView: View {
     
-    @State private var isShow: Bool = false
-    @Namespace var namespace
+    @State private var offset: CGFloat = .zero
     
     var body: some View {
         
-        VStack {
+        ScrollView(.horizontal, showsIndicators: false) {
             
-            if !isShow {
+            HStack {
                 
-                Rectangle()
-                    .cornerRadius(20)
-                    .matchedGeometryEffect(id: "rect", in: namespace)
-                    .frame(width: 50, height: 50)
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            isShow.toggle()
+                ForEach(1...10, id: \.self) { _ in
+                    
+                    GeometryReader { proxy in
+                        
+                        ZStack {
+                        
+                            Rectangle()
+                                .cornerRadius(20)
+                            
+                            Text("\(getScale(proxy:proxy))")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.white)
                         }
                     }
-                
-            } else {
-                
-                Rectangle()
-                    .cornerRadius(20)
-                    .matchedGeometryEffect(id: "tri", in: namespace)
-                    .frame(maxWidth: .infinity, maxHeight: 300)
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            isShow.toggle()
-                        }
-                    }
+                    .frame(width: UIScreen.main.bounds.width - 60, height: UIScreen.main.bounds.height/2)
+                }
             }
+            .padding()
         }
-        .onAppear {
-            
-        }
+    }
+    
+    private func getScale(proxy: GeometryProxy) -> CGFloat {
+        
+        let frame = proxy.frame(in: .global)
+        
+        return frame.origin.x
     }
 }
 

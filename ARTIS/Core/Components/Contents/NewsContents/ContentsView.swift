@@ -25,7 +25,7 @@ struct ContentsView: View {
         self.news = news
         self.category = category
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "contents"))
+        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
     }
     
     var body: some View {
@@ -151,7 +151,7 @@ extension ContentsView {
                         }
                         
                         Button {
-                            
+                            vm.removeContentsImageFromCache()
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             
@@ -194,6 +194,7 @@ extension ContentsView {
                             if offset.height > 100 {
 
                                 offset.height += UIScreen.main.bounds.height
+                                vm.removeContentsImageFromCache()
                                 presentationMode.wrappedValue.dismiss()
                                 
                             } else {
@@ -217,14 +218,14 @@ extension ContentsView {
             ProgressView()
                 .onAppear {
 
-                    vm.downloadCoverImage()
                     vm.downloadContentsImage(contents_num)
+                    vm.downloadContentBackground(contentNum: news.contents)
                 }
             
         } else {
             
             Image(systemName: "questionMark")
-                .foregroundColor(Color.theme.accent)
+                .foregroundColor(Color.theme.TextColor)
         }
     }
     
@@ -253,7 +254,6 @@ extension ContentsView {
                 self.contents_num += 1
                 
                 if contents_num <= news.contents {
-                    
                     vm.downloadContentsImage(contents_num)
                 }
             } else {

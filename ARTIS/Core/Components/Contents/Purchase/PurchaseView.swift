@@ -20,7 +20,7 @@ struct PurchaseView: View {
                 Text("결제하기")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
                 
                 Spacer()
             }

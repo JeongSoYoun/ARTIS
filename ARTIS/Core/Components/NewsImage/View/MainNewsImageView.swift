@@ -14,7 +14,7 @@ struct MainNewsImageView: View {
     
     init(news: News) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
+        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
         self.newsTitle = news.title
     }
     
@@ -45,7 +45,7 @@ struct MainNewsImageView: View {
         } else {
             
             Image(systemName: "questionMark")
-                .foregroundColor(Color.theme.accent)
+                .foregroundColor(Color.theme.TextColor)
         }
     }
 }

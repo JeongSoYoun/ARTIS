@@ -28,7 +28,7 @@ extension MegazineView {
             
             Spacer()
             
-            Text("megazine View")
+            Text("Megazine View")
                 .font(.largeTitle)
             
             Spacer()

@@ -13,7 +13,7 @@ struct NewsImageView: View {
     
     init(news: News) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news, cache_dir: "cover"))
+        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
     }
     
     var body: some View {
@@ -33,7 +33,7 @@ struct NewsImageView: View {
             } else {
                 
                 Image(systemName: "questionmark")
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
             }
         }
     }

@@ -69,7 +69,7 @@ struct CarouselView: View {
                 Text(title[relativeLoc()])
                     .font(.subheadline)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
                     .padding()
             }
         }

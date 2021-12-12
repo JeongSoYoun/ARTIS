@@ -10,15 +10,21 @@ struct tabView: View {
 
     var body: some View {
         
-        VStack(spacing:0) {
+        ZStack {
             
-            TabSwitchView
+            Color.theme.background
+                .ignoresSafeArea()
             
-            Divider()
-            
-            TabBarView
+            VStack(spacing:0) {
+                
+                TabSwitchView
+                
+                Divider()
+                
+                TabBarView
+            }
+            .ignoresSafeArea(.keyboard)
         }
-        .ignoresSafeArea(.keyboard)
     }
 }
 
@@ -45,7 +51,7 @@ extension tabView {
             case 1:
                 
                 MegazineView()
-                    .navigationTitle("카드 메거진 🎃")
+                    .navigationTitle("메거진")
             
             case 2:
         
@@ -73,12 +79,12 @@ extension tabView {
                         .font(.system(size: 20,
                                       weight: selectedTab == tag ? .bold : .medium,
                                       design: .default))
-                        .foregroundColor(Color.theme.accent)
+                        .foregroundColor(Color.theme.TextColor)
                     
                     Text(vm.Item[tag].name)
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.theme.accent)
+                        .foregroundColor(Color.theme.TextColor)
                 }
                 .onTapGesture {
                     

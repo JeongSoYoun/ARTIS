@@ -50,10 +50,10 @@ extension SearchView {
             HStack {
                 
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(vm.textSearch.isEmpty ? Color.gray.opacity(0.5) : Color.theme.accent)
+                    .foregroundColor(vm.textSearch.isEmpty ? Color.gray.opacity(0.5) : Color.theme.TextColor)
                 
                 TextField("발매 정보, 전시회, 브랜드 검색하기", text: $vm.textSearch)
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
                     .overlay(
                         
                         Image(systemName: "xmark.circle.fill")
@@ -86,7 +86,7 @@ extension SearchView {
             if isSearching {
                 
                 Text("cancel")
-                    .foregroundColor(Color.theme.accent)
+                    .foregroundColor(Color.theme.TextColor)
                     .fontWeight(.semibold)
                     .transition(.move(edge: .trailing))
                     .onTapGesture {
@@ -117,16 +117,16 @@ extension SearchView {
                 
                 VStack {
                     
-                    Text("a")
-                        .foregroundColor(Color.theme.accent)
+                    Text("dummy")
+                        .foregroundColor(Color.theme.TextColor)
                         .font(.subheadline)
                         .fontWeight(.bold)
-                    Text("b")
-                        .foregroundColor(Color.theme.accent)
+                    Text("dummy")
+                        .foregroundColor(Color.theme.TextColor)
                         .font(.subheadline)
                         .fontWeight(.bold)
-                    Text("c")
-                        .foregroundColor(Color.theme.accent)
+                    Text("dummy")
+                        .foregroundColor(Color.theme.TextColor)
                         .font(.subheadline)
                         .fontWeight(.bold)
                 }
@@ -143,20 +143,19 @@ extension SearchView {
                 Spacer()
             }
             
-            ScrollView(.horizontal,showsIndicators: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 
                 LazyHStack {
                     
                     ForEach(vm.trendNews) { news in
                         
-                        let imageVM = NewsImageViewModel(news: news, cache_dir: "cover")
+                        let imageVM = NewsImageViewModel(news: news)
                         
                         if let image = imageVM.coverImage {
                             
                             Image(uiImage: image)
                                 .resizable()
-                                .aspectRatio(CGSize(width: 1.2, height: 1.6), contentMode: .fit)
-                                .border(colorScheme == .light ? Color("myColor") : .white, width: 1)
+                                .aspectRatio(CGSize(width: 1.2, height: 1.4), contentMode: .fit)
                                 .cornerRadius(20)
                                 .padding(.horizontal)
                             
