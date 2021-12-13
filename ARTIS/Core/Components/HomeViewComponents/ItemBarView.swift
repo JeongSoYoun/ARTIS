@@ -13,7 +13,7 @@ struct ItemBarView: View {
         
         Button(action: {
             
-            withAnimation{selectedItem = item}
+            withAnimation(.spring()){selectedItem = item}
         }) {
             
             ZStack(alignment: .bottom) {
@@ -21,24 +21,21 @@ struct ItemBarView: View {
                 Text(item)
                     .font(.subheadline)
                     .fontWeight(.bold)
-                    .foregroundColor(selectedItem == item ? Color.theme.TextColor : Color.theme.SubText)
-                    .padding(.bottom,10)
-                
-                ZStack {
-                    
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(height:2)
-                    
-                    if selectedItem == item {
-                        
-                        Rectangle()
-                            .fill(Color.theme.TextColor)
-                            .frame(height: 2)
-                            .matchedGeometryEffect(id: "ID", in: animation)
-                    }
-
-                }
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(selectedItem == item ? Color.theme.background : Color.theme.TextColor)
+                    .padding(8)
+                    .background(
+                        ZStack {
+                            
+                            if selectedItem == item {
+                                
+                                Rectangle()
+                                    .fill(Color.theme.MainColor)
+                                    .cornerRadius(10)
+                                    .matchedGeometryEffect(id: "ID", in: animation)
+                            }
+                        }
+                    )
             }
         }
     }
