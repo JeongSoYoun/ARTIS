@@ -10,8 +10,8 @@ import Firebase
 
 class NewsDataService {
     
-    @Published var all_news: [News] = []
-    @Published var main_news: [News] = []
+    @Published var all_news: [Media] = []
+    @Published var main_news: [Media] = []
     @Published var exhibionInfo: ExhibitionInfo? = nil
     @Published var launchInfo: LaunchInfo? = nil
     @Published var brandInfo: BrandInfo? = nil
@@ -33,7 +33,7 @@ class NewsDataService {
         
         for collection in collections {
             
-            NetworkManager.downloadNewsData(collection: collection) { news in
+            NetworkManager.downloadMediaData(collection: collection) { news in
                 
                 self.all_news.append(contentsOf: news)
             }
@@ -42,13 +42,13 @@ class NewsDataService {
     
     private func getMainNews() {
         
-        NetworkManager.downloadNewsData(collection: "main") { news in
+        NetworkManager.downloadMediaData(collection: "main") { news in
             
             self.main_news = news
         }
     }
     
-    func getInfo(_ db_collection: String, _ news: News) {
+    func getInfo(_ db_collection: String, _ news: Media) {
         
         let docRef = infoRef(collection: db_collection, id: news.id)
         

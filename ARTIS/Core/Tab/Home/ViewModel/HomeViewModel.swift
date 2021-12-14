@@ -5,8 +5,8 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     
-    @Published var all_news: [News] = []
-    @Published var main_news: [News] = []
+    @Published var all_news: [Media] = []
+    @Published var main_news: [Media] = []
     
     private let newsDataService = NewsDataService()
     private var cancellables = Set<AnyCancellable>()

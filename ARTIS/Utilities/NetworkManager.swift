@@ -11,10 +11,10 @@ import UIKit
 
 class NetworkManager {
 
-    static func downloadNewsData(collection: String, completion: @escaping ([News]) -> Void) {
+    static func downloadMediaData(collection: String, completion: @escaping ([Media]) -> Void) {
         
         let db = Firestore.firestore()
-        var data = [News]()
+        var data = [Media]()
         
         DispatchQueue.global(qos: .default).async {
             
@@ -29,11 +29,10 @@ class NetworkManager {
                             let category = document["category"] as? String ?? ""
                             let contents = document["contents"] as? Int ?? 0
                             let createdAt = document["createdAt"] as? Double ?? 0.0
-                            let read = document["read"] as? Int ?? 0
                             let tag = document["tag"] as? [String] ?? []
                             let title = document["title"] as? String ?? ""
                             
-                            return News(id: document.documentID, category: category, contents: contents, createdAt: createdAt, read: read ,tag: tag, title: title)
+                            return Media(id: document.documentID, category: category, contents: contents, createdAt: createdAt, tag: tag, title: title)
                         }
                         
                         completion(data)

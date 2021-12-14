@@ -10,22 +10,20 @@ import Firebase
 import UIKit
 import Combine
 
-class NewsImageViewModel: ObservableObject {
+class ImageViewModel: ObservableObject {
 
     @Published var coverImage: UIImage? = nil
     @Published var contentsImages: UIImage? = nil
     @Published var isLoading: Bool = false
     @Published var isContentsLoading: Bool = false
     
-    private let news: News
     private let cache = LocalFileManager.instance
-    private let DataService: NewsImageDataService
+    private let DataService: ImageDataService
     private var cancellable = Set<AnyCancellable>()
     
-    init(news: News) {
+    init(media: Media) {
         
-        self.news = news
-        self.DataService = NewsImageDataService(news: news)
+        self.DataService = ImageDataService(media: media)
         self.isLoading = true
         self.isContentsLoading = true
         

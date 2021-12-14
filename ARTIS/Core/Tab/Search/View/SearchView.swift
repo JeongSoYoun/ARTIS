@@ -149,7 +149,7 @@ extension SearchView {
                     
                     ForEach(vm.trendNews) { news in
                         
-                        let imageVM = NewsImageViewModel(news: news)
+                        let imageVM = ImageViewModel(media: news)
                         
                         if let image = imageVM.coverImage {
                             

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct HomeCarousel: View {
     
-    private let news: [News]
+    private let media: [Media]
     
-    init(news: [News]) {
+    init(media: [Media]) {
         
-        self.news = news
+        self.media = media
     }
     
     var body: some View {
@@ -22,7 +22,7 @@ struct HomeCarousel: View {
             
             HStack(spacing: 10) {
                 
-                ForEach(news) { news in
+                ForEach(media) { news in
                     
                     GeometryReader { proxy in
                         

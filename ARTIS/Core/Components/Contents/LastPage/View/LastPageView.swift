@@ -7,23 +7,21 @@
 
 import SwiftUI
 
-struct LastPageView: View {
+struct NewsLastPageView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var vm: LastPageViewModel
-    @StateObject var imageVM: NewsImageViewModel
+    @StateObject var imageVM: ImageViewModel
     @State private var showPurchaseView: Bool = false
-    
-    private let news: News
+
     private let db_collection: String
     
-    init(news: News, db_collection: String) {
+    init(media: Media) {
         
-        self.news = news
-        self.db_collection = db_collection
-        self.vm = LastPageViewModel(news: news)
-        _imageVM = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        self.db_collection = dbCollectionMap.info(category: media.category)
+        self.vm = LastPageViewModel(media: media)
+        _imageVM = StateObject(wrappedValue: ImageViewModel(media: media))
     }
     
     var body: some View {
@@ -60,11 +58,11 @@ struct lastPageView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        LastPageView(news: dev.news, db_collection: "ex_info")
+        NewsLastPageView(media: dev.news)
     }
 }
 
-extension LastPageView {
+extension NewsLastPageView {
     
     private var ExhibitionLastPageView: some View {
         

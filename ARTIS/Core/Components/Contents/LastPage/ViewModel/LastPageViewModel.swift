@@ -14,13 +14,13 @@ class LastPageViewModel: ObservableObject {
     @Published var launch_info: LaunchInfo? = nil // need to be handeled.
     @Published var brand_info: BrandInfo? = nil // need to be handeled.
     
-    private let news: News
+    private let media: Media
     private let DataService = NewsDataService()
     private var cancellables = Set<AnyCancellable>()
     
-    init (news: News) {
+    init (media: Media) {
         
-        self.news = news
+        self.media = media
         
         addSubscribers()
     }
@@ -54,6 +54,6 @@ class LastPageViewModel: ObservableObject {
     
     func getInfo(_ db_collection: String) {
         
-        DataService.getInfo(db_collection, news)
+        DataService.getInfo(db_collection, media)
     }
 }

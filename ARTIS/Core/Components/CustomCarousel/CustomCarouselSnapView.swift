@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CustomCarouselSnapView: View {
     
-    private let items: [News]
+    private let items: [Media]
     
-    init(items: [News]) {
+    init(items: [Media]) {
         
         self.items = items
     }

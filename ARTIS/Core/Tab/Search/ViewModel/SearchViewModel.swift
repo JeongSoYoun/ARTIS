@@ -10,8 +10,8 @@ import Combine
 
 class SearchViewModel: ObservableObject {
     
-    @Published var filteredNews: [News] = []
-    @Published var trendNews: [News] = []
+    @Published var filteredNews: [Media] = []
+    @Published var trendNews: [Media] = []
     @Published var textSearch: String = ""
     
     private let DataService: NewsDataService = NewsDataService()
@@ -44,7 +44,7 @@ class SearchViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func filter(text: String, all_news: [News]) -> [News] {
+    private func filter(text: String, all_news: [Media]) -> [Media] {
         
         guard !text.isEmpty else {
             

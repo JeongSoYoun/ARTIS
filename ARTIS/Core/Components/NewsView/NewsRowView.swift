@@ -9,20 +9,16 @@ import SwiftUI
 
 struct NewsRowView: View {
     
-    let news: News
-    @State private var isContentsShow = false
+    private let news: Media
+    
+    init(news: Media) {
+        
+        self.news = news
+    }
     
     var body: some View {
         
         newsView
-            .background(
-                
-                NavigationLink (isActive: $isContentsShow, destination: {
-                    ContentsView(news: news, of: news.category)
-                }, label: {
-                    EmptyView()
-                })
-            )
     }
 }
 

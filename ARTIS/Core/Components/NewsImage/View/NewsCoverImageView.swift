@@ -9,11 +9,11 @@ import SwiftUI
 
 struct NewsCoverImageView: View {
     
-    @StateObject var vm: NewsImageViewModel
+    @StateObject var vm: ImageViewModel
     
-    init(news: News) {
+    init(news: Media) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        _vm = StateObject(wrappedValue: ImageViewModel(media: news))
     }
     
     var body: some View {

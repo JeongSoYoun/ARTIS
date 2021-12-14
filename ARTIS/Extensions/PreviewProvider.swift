@@ -23,5 +23,5 @@ class DeveloperPreview {
     
     let homeVM: HomeViewModel = HomeViewModel()
     
-    let news: News = News(id: "TryWcXnqhQG4IgNjl8pL", category: "전시회", contents: 3, createdAt: 1638258792, read: 10, tag: ["식물관 PH"], title: "Artificial Plants")
+    let news: Media = Media(id: "TryWcXnqhQG4IgNjl8pL", category: "전시회", contents: 3, createdAt: 1638258792, tag: ["식물관 PH"], title: "Artificial Plants")
 }

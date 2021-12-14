@@ -78,11 +78,11 @@ extension HomeView {
             switch selected {
 
             case "발매정보":
-                HomeCarousel(news: filterNews)
+                HomeCarousel(media: filterNews)
             case "브랜드":
-                HomeCarousel(news: filterNews)
+                HomeCarousel(media: filterNews)
             default: // "전시회"
-                HomeCarousel(news: filterNews)
+                HomeCarousel(media: filterNews)
             }
 
         } else {
@@ -101,11 +101,11 @@ extension HomeView {
             switch selected {
 
             case "발매정보":
-                NewsView(news: filterNews)
+                NewsCollectionRowView(news: filterNews)
             case "브랜드":
-                NewsView(news: filterNews)
+                NewsCollectionRowView(news: filterNews)
             default: // "전시회"
-                NewsView(news: filterNews)
+                NewsCollectionRowView(news: filterNews)
             }
         }
     }

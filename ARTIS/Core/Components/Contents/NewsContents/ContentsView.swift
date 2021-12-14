@@ -10,27 +10,24 @@ import SwiftUI
 struct ContentsView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var vm: NewsImageViewModel
+    @StateObject var vm: ImageViewModel
     @State private var touch_loc: CGPoint = .zero
     @State private var contents_num: Int = 1
     @State private var offset: CGSize = .zero
     @State private var isTitleShow: Bool = false
     
-    private let news: News
+    private let media: Media
     private let screen_width: CGFloat = UIScreen.main.bounds.width/2
-    private let category: String
     
-    init(news: News, of category: String) {
+    init(media: Media) {
         
-        self.news = news
-        self.category = category
-        
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
+        self.media = media
+        _vm = StateObject(wrappedValue: ImageViewModel(media: media))
     }
     
     var body: some View {
         
-        if contents_num <= news.contents {
+        if contents_num <= media.contents {
             
             ZStack {
                 
@@ -53,18 +50,8 @@ struct ContentsView: View {
 
         } else {
             
-            switch category {
-                
-            case "전시회":
-                LastPageView(news: news, db_collection: "ex_info")
-                    .edgesIgnoringSafeArea(.all)
-                
-            case "발매정보":
-                LastPageView(news: news, db_collection: "launch_info")
-                
-            default:
-                LastPageView(news: news, db_collection: "brand_info")
-            }
+            NewsLastPageView(media: media)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
@@ -73,7 +60,7 @@ struct testImageView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        ContentsView(news: dev.news, of: "전시회")
+        ContentsView(media: dev.news)
     }
 }
 
@@ -111,7 +98,7 @@ extension ContentsView {
                     HStack {
                         
                         //Progress View
-                        ForEach(1 ... news.contents, id: \.self) { index in
+                        ForEach(1 ... media.contents, id: \.self) { index in
                             
                             RoundedRectangle(cornerRadius: 20)
                                 .foregroundColor(index <= contents_num ? Color.white.opacity(0.5) : Color.gray.opacity(0.3))
@@ -135,12 +122,12 @@ extension ContentsView {
                                 
                                 VStack(alignment: .leading) {
                                     
-                                    Text(news.title)
+                                    Text(media.title)
                                         .font(.subheadline)
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)
                                     
-                                    Text(news.category)
+                                    Text(media.category)
                                         .font(.caption)
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.white)
@@ -220,7 +207,7 @@ extension ContentsView {
 
                     vm.downloadCoverImage()
                     vm.downloadContentsImage(contents_num)
-                    vm.downloadContentBackground(contentNum: news.contents)
+                    vm.downloadContentBackground(contentNum: media.contents)
                 }
             
         } else {
@@ -235,7 +222,7 @@ extension ContentsView {
         
         if contents_num == 1 {
             
-            Text(news.title)
+            Text(media.title)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
@@ -254,7 +241,7 @@ extension ContentsView {
                 
                 self.contents_num += 1
                 
-                if contents_num <= news.contents {
+                if contents_num <= media.contents {
                     vm.downloadContentsImage(contents_num)
                 }
             } else {

@@ -9,22 +9,21 @@ import Foundation
 import Firebase
 import UIKit
 
-class NewsImageDataService {
+class ImageDataService {
     
     @Published var coverImage: UIImage? = nil
     @Published var contentsImage: UIImage? = nil
     
     private let cache = LocalFileManager.instance
-    private let news: News
-    private let category: String
     private let id: String
+    private let category: String
 
-    init(news: News) {
+
+    init(media: Media) {
         
-        self.news = news
-        self.category = news.map()
-        self.id = news.id
-        
+        self.id = media.id
+        self.category = dbCollectionMap.model(collection: media.category)
+
         downloadCoverImage()
     }
     

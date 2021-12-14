@@ -9,14 +9,13 @@ import SwiftUI
 
 struct MainNewsImageView: View {
     
-    @StateObject var vm: NewsImageViewModel
+    @StateObject var vm: ImageViewModel
     @State private var isContentShow: Bool = false
-    private var newsTitle: String
-    private let news: News
-    init(news: News) {
+    private let news: Media
+    
+    init(news: Media) {
         
-        _vm = StateObject(wrappedValue: NewsImageViewModel(news: news))
-        self.newsTitle = news.title
+        _vm = StateObject(wrappedValue: ImageViewModel(media: news))
         self.news = news
     }
     
@@ -40,14 +39,13 @@ struct MainNewsImageView: View {
                     }
                     .background(
                         NavigationLink(isActive: $isContentShow, destination: {
-                            
-                            ContentsView(news: news, of: news.category)
+                            ContentsView(media: news)
                         }, label: {
                             EmptyView()
                         })
                     )
                 
-                Text(newsTitle)
+                Text(news.title)
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)

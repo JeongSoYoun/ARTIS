@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct NewsView: View {
+struct NewsCollectionRowView: View {
     
-    private let news: [News]
+    private let news: [Media]
     @State private var selection: String? = nil
     
-    init(news: [News]) {
+    init(news: [Media]) {
         
         self.news = news
     }
@@ -30,7 +30,7 @@ struct NewsView: View {
                     .background(
                         
                         NavigationLink(tag: news[index].id, selection: $selection, destination: {
-                            ContentsView(news: news[index], of: news[index].category)
+                            ContentsView(media: news[index])
                         }, label: {
                             EmptyView()
                         })
@@ -40,9 +40,4 @@ struct NewsView: View {
         }
     }
 }
-//
-//struct NewsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewsView(news: [dev.news])
-//    }
-//}
+
