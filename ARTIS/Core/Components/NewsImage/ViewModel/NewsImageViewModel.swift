@@ -16,11 +16,10 @@ class NewsImageViewModel: ObservableObject {
     @Published var contentsImages: UIImage? = nil
     @Published var isLoading: Bool = false
     @Published var isContentsLoading: Bool = false
-    @Published var contentsBuffer: [UIImage] = []
     
     private let news: News
     private let cache = LocalFileManager.instance
-    private let DataService: NewsImageDataService // communication part
+    private let DataService: NewsImageDataService
     private var cancellable = Set<AnyCancellable>()
     
     init(news: News) {

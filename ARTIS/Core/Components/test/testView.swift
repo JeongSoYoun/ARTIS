@@ -21,18 +21,28 @@ struct testView: View {
                     
                     GeometryReader { proxy in
                         
+                        let scale = getScale(proxy: proxy)
                         ZStack {
                         
                             Rectangle()
                                 .cornerRadius(20)
+                                .scaleEffect(.init(width: scale, height: scale))
                             
-                            Text("\(getScale(proxy:proxy))")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
+                            VStack {
+                                
+                                Text("\(getScale(proxy:proxy))")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.white)
+                                Text("\(UIScreen.main.bounds.width/2)")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.white)
+                            }
                         }
                     }
-                    .frame(width: UIScreen.main.bounds.width - 60, height: UIScreen.main.bounds.height/2)
+                    .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height/2.2)
+                    .padding()
                 }
             }
             .padding()
@@ -41,9 +51,18 @@ struct testView: View {
     
     private func getScale(proxy: GeometryProxy) -> CGFloat {
         
+        let midPoint:CGFloat = UIScreen.main.bounds.width/2
+        let deltaXAnimationThreshold: CGFloat = UIScreen.main.bounds.width/2
         let frame = proxy.frame(in: .global)
+        let diffFromCenter = abs(midPoint - frame.origin.x - deltaXAnimationThreshold/2)
         
-        return frame.origin.x
+        var scale: CGFloat = 1.0
+        if diffFromCenter < deltaXAnimationThreshold {
+            
+            scale = 1 + (deltaXAnimationThreshold-diffFromCenter)/1000
+        }
+        
+        return scale
     }
 }
 

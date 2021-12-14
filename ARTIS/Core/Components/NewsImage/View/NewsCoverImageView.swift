@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewsImageView: View {
+struct NewsCoverImageView: View {
     
     @StateObject var vm: NewsImageViewModel
     
@@ -43,6 +43,6 @@ struct NewsImageView: View {
 struct NewsImageView_Previews: PreviewProvider {
     static var previews: some View {
         
-        NewsImageView(news: dev.news)
+        NewsCoverImageView(news: dev.news)
     }
 }

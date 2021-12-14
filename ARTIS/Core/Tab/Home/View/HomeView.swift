@@ -56,19 +56,15 @@ extension HomeView {
     
     private var itemBarView: some View {
         
-        ZStack(alignment: .bottom) {
+        HStack {
             
-            HStack {
-                
-                ItemBarView(selectedItem: $selected, item: "발매정보", animation: animation)
-                ItemBarView(selectedItem: $selected, item: "브랜드", animation: animation)
-                ItemBarView(selectedItem: $selected, item: "전시회", animation: animation)
-            }
+            ItemBarView(selectedItem: $selected, item: "발매정보", animation: animation)
             
-            Rectangle()
-                .fill(Color.theme.SubText.opacity(0.2))
-                .frame(height:2)
+            ItemBarView(selectedItem: $selected, item: "브랜드", animation: animation)
+            
+            ItemBarView(selectedItem: $selected, item: "전시회", animation: animation)
         }
+        .background(Color.black.opacity(0.04), in: RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal)
     }
     
@@ -82,11 +78,11 @@ extension HomeView {
             switch selected {
 
             case "발매정보":
-                mainNewsView(all_news: filterNews)
+                HomeCarousel(news: filterNews)
             case "브랜드":
-                mainNewsView(all_news: filterNews)
+                HomeCarousel(news: filterNews)
             default: // "전시회"
-                mainNewsView(all_news: filterNews)
+                HomeCarousel(news: filterNews)
             }
 
         } else {
@@ -99,18 +95,6 @@ extension HomeView {
     private var latestNewsView: some View {
         
         if !vm.all_news.isEmpty {
-            
-            HStack {
-                
-                Text("새로운 소식  🚀")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.theme.TextColor)
-                
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.bottom)
             
             let filterNews = vm.all_news.filter{$0.category == selected}
             

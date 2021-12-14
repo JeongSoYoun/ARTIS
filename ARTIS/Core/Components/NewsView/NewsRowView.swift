@@ -38,68 +38,51 @@ extension NewsRowView {
     
     private var newsView: some View {
         
-        ZStack {
+        VStack {
             
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: UIScreen.main.bounds.width-30, height: UIScreen.main.bounds.width/3)
-                .foregroundColor(Color.theme.newsColor)
-            
-            VStack {
+            HStack(alignment: .top) {
                 
-                HStack(alignment: .top) {
+                VStack(alignment: .leading) {
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 5) {
                         
-                        VStack(alignment: .leading, spacing: 5) {
+                        Text(news.category)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.theme.TextColor)
+                        
+                        HStack {
                             
-                            Text(news.category)
-                                .font(.subheadline)
+                            Text(Date(timeIntervalSince1970: news.createdAt).format)
+                                .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.theme.TextColor)
                             
-                            HStack {
-                                
-                                Text(Date(timeIntervalSince1970: news.createdAt).format)
-                                    .font(.caption)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(Color.theme.TextColor)
-                                
-                                HStack {
-                                    Image(systemName: "eye")
-                                        .font(.caption)
-                                        .foregroundColor(Color.theme.TextColor)
-                                    
-                                    Text(String(news.read))
-                                        .font(.caption)
-                                        .foregroundColor(Color.theme.TextColor)
-                                    
-                                }.padding(.horizontal,5)
-                                
-                                Spacer()
-                            }
+                            Spacer()
                         }
-                        
-                        Spacer()
-                        Text(news.title)
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color.theme.TextColor)
-                            .padding(.bottom)
                     }
-                    .padding(.top,10)
                     
-                    VStack {
-                        
-                        Spacer()
-                        
-                        NewsImageView(news: news)
-                        
-                        Spacer()
-                    }
+                    Spacer()
+                    Text(news.title)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.theme.TextColor)
+                        .padding(.bottom)
                 }
-                .padding(.horizontal,20)
-                .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
+                .padding(.top,10)
+                
+                VStack {
+                    
+                    Spacer()
+                    
+                    NewsCoverImageView(news: news)
+                    
+                    Spacer()
+                }
             }
+            .padding(.horizontal,10)
+            .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
         }
+
     }
 }

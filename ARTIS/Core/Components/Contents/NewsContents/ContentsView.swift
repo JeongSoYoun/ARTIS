@@ -218,6 +218,7 @@ extension ContentsView {
             ProgressView()
                 .onAppear {
 
+                    vm.downloadCoverImage()
                     vm.downloadContentsImage(contents_num)
                     vm.downloadContentBackground(contentNum: news.contents)
                 }
