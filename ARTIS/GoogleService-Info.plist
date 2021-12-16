@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>269586163963-sgflg3h6l4iqo496nie5f7pmhg4tm365.apps.googleusercontent.com</string>
+	<string>694452515860-d61vvkhhea1pqsh29sr62ed3pmsdhm69.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.269586163963-sgflg3h6l4iqo496nie5f7pmhg4tm365</string>
+	<string>com.googleusercontent.apps.694452515860-d61vvkhhea1pqsh29sr62ed3pmsdhm69</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAE6Rt9QyQZqvDh847VdyqwkmQOI7XiycI</string>
+	<string>AIzaSyDMz-Kh4VNRlDeoBUa4I2jBMtE5SuS1qr0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>269586163963</string>
+	<string>694452515860</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>yoon.ARTIS</string>
+	<string>com.yoon.ARTIS</string>
 	<key>PROJECT_ID</key>
-	<string>artis-4f589</string>
+	<string>artis-302a2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>artis-4f589.appspot.com</string>
+	<string>artis-302a2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:269586163963:ios:f0c66941de03dc6fb0285e</string>
+	<string>1:694452515860:ios:b790fe2744ee33e120a301</string>
 </dict>
 </plist>

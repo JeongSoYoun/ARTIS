@@ -17,7 +17,7 @@ struct AlarmView: View {
                     Circle()
                         .foregroundColor(Color.theme.subBackground)
                 )
-                .shadow(color: Color.theme.MainColor.opacity(0.4),
+                .shadow(color: Color.theme.MainColor.opacity(0.25),
                         radius: 10, x: 0, y: 0
                 )
     }
