@@ -66,6 +66,17 @@ class LocalFileManager {
         return UIImage(contentsOfFile: url.path)
     }
     
+    func removeCoverImage() {
+        
+        guard let url = getURLFolder(cache_dir: "cover") else {return}
+        
+        do {
+            try FileManager.default.removeItem(atPath: url.path)
+        } catch let error {
+            print("error removing Item. \(error)")
+        }
+    }
+    
     func removeContentsImage(cache_dir: String) {
         
         guard let url = getURLFolder(cache_dir: cache_dir) else {return}

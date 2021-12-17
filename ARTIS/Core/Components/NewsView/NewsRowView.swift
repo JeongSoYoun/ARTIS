@@ -71,7 +71,7 @@ extension NewsRowView {
                     
                     Spacer()
                     
-                    NewsCoverImageView(news: news)
+                    NewsRowCoverImageView(news: news)
                     
                     Spacer()
                 }

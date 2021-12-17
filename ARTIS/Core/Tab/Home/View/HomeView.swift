@@ -73,16 +73,16 @@ extension HomeView {
 
         if !vm.main_news.isEmpty {
             
-            let filterNews = vm.main_news.filter{$0.category == selected}
+            let news = vm.main_news.filter{$0.category == selected}
             
             switch selected {
 
             case "발매정보":
-                HomeCarousel(media: filterNews)
+                CustomCarouselSnapView(media: news)
             case "브랜드":
-                HomeCarousel(media: filterNews)
+                CustomCarouselSnapView(media: news)
             default: // "전시회"
-                HomeCarousel(media: filterNews)
+                CustomCarouselSnapView(media: news)
             }
 
         } else {
@@ -96,16 +96,16 @@ extension HomeView {
         
         if !vm.all_news.isEmpty {
             
-            let filterNews = vm.all_news.filter{$0.category == selected}
+            let news = vm.all_news.filter{$0.category == selected}
             
             switch selected {
 
             case "발매정보":
-                NewsCollectionRowView(news: filterNews)
+                NewsCollectionRowView(news: news)
             case "브랜드":
-                NewsCollectionRowView(news: filterNews)
+                NewsCollectionRowView(news: news)
             default: // "전시회"
-                NewsCollectionRowView(news: filterNews)
+                NewsCollectionRowView(news: news)
             }
         }
     }
