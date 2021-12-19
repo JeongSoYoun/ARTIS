@@ -11,11 +11,12 @@ struct AlarmView: View {
             
             Image(systemName: imageName)
                 .font(.headline)
-                .frame(width:40, height: 40)
+                .frame(width:30, height: 30)
+                .foregroundColor(Color.theme.background)
                 .background(
                 
                     Circle()
-                        .foregroundColor(Color.theme.subBackground)
+                        .foregroundColor(Color.theme.MainColor)
                 )
                 .shadow(color: Color.theme.MainColor.opacity(0.25),
                         radius: 10, x: 0, y: 0

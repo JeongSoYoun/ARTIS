@@ -76,9 +76,9 @@ extension NewsRowView {
                     Spacer()
                 }
             }
-            .padding(.horizontal,10)
-            .frame(maxWidth: UIScreen.main.bounds.width - 30,maxHeight: UIScreen.main.bounds.width/3.5)
+            
+            .frame(maxWidth: UIScreen.main.bounds.width - 30, maxHeight: UIScreen.main.bounds.width/3.5)
         }
-
+        .padding(.horizontal)
     }
 }

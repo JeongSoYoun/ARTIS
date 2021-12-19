@@ -15,7 +15,7 @@ class LastPageViewModel: ObservableObject {
     @Published var brand_info: BrandInfo? = nil // need to be handeled.
     
     private let media: Media
-    private let DataService = NewsDataService()
+    private let DataService = MediaDataService()
     private var cancellables = Set<AnyCancellable>()
     
     init (media: Media) {

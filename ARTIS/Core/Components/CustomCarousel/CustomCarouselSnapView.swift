@@ -9,12 +9,13 @@ import SwiftUI
 
 struct CustomCarouselSnapView: View {
     
-    @State private var currentItem: Int
+    @State private var currentItem: Int = 0
     @State private var dragAmount: CGFloat = 0
     
     private let media: [Media]
-    private let spacing: CGFloat = 16
-    private let widthOfHiddenCard: CGFloat = 60
+    private let showsIndicators: Bool
+    private let spacing: CGFloat
+    private let widthOfHiddenCard: CGFloat
     private let numberOfMedia: CGFloat
     private let totalSpacing: CGFloat
     private let cardWidth: CGFloat
@@ -23,10 +24,12 @@ struct CustomCarouselSnapView: View {
     private let leftPadding: CGFloat
     private let totalMovement: CGFloat
     
-    init(media: [Media]) {
+    init(media: [Media], spacing: CGFloat, widthOfHiddenCard: CGFloat, showsIndicators: Bool = true) {
         
-        self.currentItem = media.count/2
         self.media = media
+        self.showsIndicators = showsIndicators
+        self.spacing = spacing
+        self.widthOfHiddenCard = widthOfHiddenCard
         self.numberOfMedia = CGFloat(media.count)
         self.totalSpacing = (numberOfMedia - 1) * spacing
         self.cardWidth = UIScreen.main.bounds.width - (widthOfHiddenCard + spacing) * 2
@@ -49,16 +52,14 @@ struct CustomCarouselSnapView: View {
                             width: cardWidth,
                             height: index == currentItem ? cardWidth + 100 : cardWidth + 50
                         )
+                        .opacity(index == currentItem ? 1.0 : 0.7)
                         .offset(x: calcOffset(), y: 0)
                         .gesture(
                             
                             DragGesture()
                                 .onChanged { value in
                                     
-                                    if currentItem < media.count - 1 {
-                                        
-                                        self.dragAmount = value.translation.width
-                                    }
+                                    self.dragAmount = value.translation.width
                                 }
                                 .onEnded { value in
                                     
@@ -78,34 +79,44 @@ struct CustomCarouselSnapView: View {
                                     }
                                 }
                         )
-                        .transition(AnyTransition.slide)
-                        .animation(.spring(), value: UUID())
+                        .animation(.default, value: UUID())
                 }
             }
             .frame(maxWidth: UIScreen.main.bounds.width)
             
-            Text("\(media[currentItem].title)")
-                .font(.subheadline)
-                .fontWeight(.bold)
-                .foregroundColor(Color.theme.TextColor)
+            if showsIndicators {
+                
+                HStack {
+                    
+                    ForEach(0 ..< media.count, id: \.self) { index in
+                        
+                        Circle()
+                            .frame(
+                                width: index == currentItem ? 10 : 6,
+                                height: index == currentItem ? 10 : 6 )
+                            .foregroundColor(Color.theme.TextColor)
+                    }
+                }
                 .padding()
+            }
         }
     }
     
     private func calcOffset() -> CGFloat {
         
-        let minOffset: CGFloat = xOffsetToShift + (leftPadding)
+        let minOffset: CGFloat = xOffsetToShift + 15
+        let maxOffset: CGFloat = minOffset - (totalMovement * CGFloat(media.count-1))
         let currentOffset: CGFloat = minOffset - (totalMovement * CGFloat(currentItem))
         
         var offset = currentOffset
-        
         if offset == minOffset {
             
-            return minOffset
+            offset = currentOffset + dragAmount
+            return min(minOffset,offset)
         } else {
             
             offset = currentOffset + dragAmount
-            return offset
+            return max(offset,maxOffset)
         }
     }
 }
@@ -113,7 +124,7 @@ struct CustomCarouselSnapView: View {
 struct CustomCarouselSnapView_Previews: PreviewProvider {
     static var previews: some View {
         
-        CustomCarouselSnapView(media: dev.sample_news)
+        CustomCarouselSnapView(media: dev.sample_news, spacing: 20, widthOfHiddenCard: 40)
     }
 }
 

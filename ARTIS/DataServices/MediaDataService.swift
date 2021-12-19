@@ -8,30 +8,55 @@
 import Foundation
 import Firebase
 
-class NewsDataService {
+class MediaDataService {
     
+    @Published var all_media: [Media] = []
     @Published var all_news: [Media] = []
     @Published var main_news: [Media] = []
+    @Published var magazines: [Media] = []
     @Published var exhibionInfo: ExhibitionInfo? = nil
     @Published var launchInfo: LaunchInfo? = nil
     @Published var brandInfo: BrandInfo? = nil
     
-    private let collections: [String] = ["launch","brand","exhibition"]
+    private let dbCollections: [String]
+    private let NewsCollections: [String]
     
     init() {
         
-        downloadNews()
+        self.dbCollections = dbCollectionMap.dbCollection()
+        self.NewsCollections = dbCollectionMap.NewsCollection()
     }
     
-    private func downloadNews() {
+    func donwloadAllMedia() {
+        
+        getAllMedia()
+    }
+    
+    func downloadNews() {
         
         getMainNews()
         getAllNews()
     }
     
+    func downloadMagazines() {
+        
+        getMagazines()
+    }
+    
+    private func getAllMedia() {
+        
+        for collection in dbCollections {
+            
+            NetworkManager.downloadMediaData(collection: collection) { media in
+                
+                self.all_media.append(contentsOf: media)
+            }
+        }
+    }
+    
     private func getAllNews() {
         
-        for collection in collections {
+        for collection in NewsCollections {
             
             NetworkManager.downloadMediaData(collection: collection) { news in
                 
@@ -45,6 +70,14 @@ class NewsDataService {
         NetworkManager.downloadMediaData(collection: "main") { news in
             
             self.main_news = news
+        }
+    }
+    
+    private func getMagazines() {
+        
+        NetworkManager.downloadMediaData(collection: "magazine") { magazines in
+            
+            self.magazines = magazines
         }
     }
     

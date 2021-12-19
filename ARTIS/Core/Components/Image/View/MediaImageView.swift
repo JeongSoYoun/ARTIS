@@ -38,7 +38,6 @@ struct MediaImageView: View {
                         EmptyView()
                     })
                 )
-            .padding(.top)
             
         } else if vm.isLoading {
             

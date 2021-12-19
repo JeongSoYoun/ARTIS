@@ -8,17 +8,18 @@ class HomeViewModel: ObservableObject {
     @Published var all_news: [Media] = []
     @Published var main_news: [Media] = []
     
-    private let newsDataService = NewsDataService()
+    private let DataService = MediaDataService()
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         
         fetchData()
+        DataService.downloadNews()
     }
     
     func fetchData() {
         
-        newsDataService.$all_news
+        DataService.$all_news
             .receive(on: DispatchQueue.main)
             .sink { [weak self] returnedNews in
                 
@@ -26,7 +27,7 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        newsDataService.$main_news
+        DataService.$main_news
             .receive(on: DispatchQueue.main)
             .sink { [weak self] returnedNews in
                 

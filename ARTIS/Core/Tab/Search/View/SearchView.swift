@@ -53,7 +53,7 @@ extension SearchView {
                     .foregroundColor(vm.textSearch.isEmpty ? Color.gray.opacity(0.5) : Color.theme.TextColor)
                 
                 TextField("발매 정보, 전시회, 브랜드 검색하기", text: $vm.textSearch)
-                    .foregroundColor(Color.theme.TextColor)
+                    .foregroundColor(Color.theme.MainColor)
                     .overlay(
                         
                         Image(systemName: "xmark.circle.fill")
@@ -73,6 +73,7 @@ extension SearchView {
             .onTapGesture {
                 withAnimation(.spring()) {
                     self.isSearching = true
+                    vm.downloadAllMedia()
                 }
             }
             .padding()
@@ -85,7 +86,7 @@ extension SearchView {
             
             if isSearching {
                 
-                Text("cancel")
+                Text("취소")
                     .foregroundColor(Color.theme.TextColor)
                     .fontWeight(.semibold)
                     .transition(.move(edge: .trailing))
@@ -107,7 +108,7 @@ extension SearchView {
                 
                 HStack {
                     
-                    Text("검색 키워드  👀")
+                    Text("검색 키워드")
                         .font(.title2)
                         .fontWeight(.bold)
                         .padding()
@@ -135,7 +136,7 @@ extension SearchView {
             
             HStack {
                 
-                Text("트렌드 뉴스  🔥")
+                Text("트렌드 뉴스")
                     .font(.title2)
                     .fontWeight(.bold)
                     .padding()
@@ -189,10 +190,10 @@ extension SearchView {
                     Spacer()
                 }
             } else {
-                
-                ForEach(vm.filteredNews) { news in
+            
+                ForEach(vm.filteredMedia) { media in
                     
-                    NewsRowView(news: news)
+                    NewsRowView(news: media)
                 }
             }
         }

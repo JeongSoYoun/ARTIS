@@ -50,7 +50,7 @@ extension tabView {
                 
             case 1:
                 
-                MegazineView()
+                MagazineView()
                     .navigationTitle("메거진")
             
             case 2:

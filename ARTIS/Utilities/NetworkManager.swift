@@ -15,13 +15,13 @@ class NetworkManager {
         
         let db = Firestore.firestore()
         var data = [Media]()
-        
+
         DispatchQueue.global(qos: .default).async {
             
             db.collection(collection).getDocuments { snapshot, error in
                 
                 if error == nil {
-                    
+ 
                     if let snapshot = snapshot {
                         
                         data = snapshot.documents.map { (document) in
@@ -31,7 +31,7 @@ class NetworkManager {
                             let createdAt = document["createdAt"] as? Double ?? 0.0
                             let tag = document["tag"] as? [String] ?? []
                             let title = document["title"] as? String ?? ""
-                            
+                           
                             return Media(id: document.documentID, category: category, contents: contents, createdAt: createdAt, tag: tag, title: title)
                         }
                         
@@ -39,7 +39,7 @@ class NetworkManager {
                     }
                 } else {
                     
-                    print("Error loading news")
+                    print("Error downloading news")
                 }
             }
         }

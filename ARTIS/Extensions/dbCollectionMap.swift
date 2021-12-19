@@ -9,6 +9,16 @@ import Foundation
 
 class dbCollectionMap {
     
+    static func dbCollection() -> [String] {
+        
+        return ["launch","brand","exhibition","magazine"]
+    }
+    
+    static func NewsCollection() -> [String] {
+        
+        return ["launch","brand","exhibition"]
+    }
+    
     static func model(collection: String) -> String {
         
         switch collection {
@@ -20,7 +30,7 @@ class dbCollectionMap {
         case "전시회":
             return "exhibition"
         default:
-            return "megazine"
+            return "magazine"
         }
     }
     
