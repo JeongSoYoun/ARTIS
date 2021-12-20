@@ -61,7 +61,7 @@ extension MagazineView {
                             // show more megazine view. Need to handle
                         }
                     
-                    CustomCarouselSnapView(media: vm.magazines, spacing: 5, widthOfHiddenCard: 20, showsIndicators: false)
+                    CustomCarouselSnapView(media: vm.magazines, spacing: 5, widthOfHiddenCard: 20, leftPadding: 15, showsIndicators: false, showsTitle: false)
                 }
                 .padding(.top,20)
                 

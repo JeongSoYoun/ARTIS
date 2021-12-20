@@ -14,6 +14,7 @@ struct CustomCarouselSnapView: View {
     
     private let media: [Media]
     private let showsIndicators: Bool
+    private let showsTitle: Bool
     private let spacing: CGFloat
     private let widthOfHiddenCard: CGFloat
     private let numberOfMedia: CGFloat
@@ -24,10 +25,11 @@ struct CustomCarouselSnapView: View {
     private let leftPadding: CGFloat
     private let totalMovement: CGFloat
     
-    init(media: [Media], spacing: CGFloat, widthOfHiddenCard: CGFloat, showsIndicators: Bool = true) {
+    init(media: [Media], spacing: CGFloat, widthOfHiddenCard: CGFloat, leftPadding: CGFloat, showsIndicators: Bool = true, showsTitle: Bool = true) {
         
         self.media = media
         self.showsIndicators = showsIndicators
+        self.showsTitle = showsTitle
         self.spacing = spacing
         self.widthOfHiddenCard = widthOfHiddenCard
         self.numberOfMedia = CGFloat(media.count)
@@ -35,7 +37,7 @@ struct CustomCarouselSnapView: View {
         self.cardWidth = UIScreen.main.bounds.width - (widthOfHiddenCard + spacing) * 2
         self.totalCardWidth = (numberOfMedia * cardWidth) + totalSpacing
         self.xOffsetToShift = (totalCardWidth - UIScreen.main.bounds.width) / 2
-        self.leftPadding = widthOfHiddenCard + spacing
+        self.leftPadding = leftPadding
         self.totalMovement = cardWidth + spacing
     }
     
@@ -47,7 +49,7 @@ struct CustomCarouselSnapView: View {
                 
                 ForEach(0 ..< media.count, id: \.self) { (index) in
                     
-                    MediaImageView(media: media[index])
+                    MediaImageView(media: media[index], showsTitle: showsTitle)
                         .frame(
                             width: cardWidth,
                             height: index == currentItem ? cardWidth + 100 : cardWidth + 50
@@ -92,8 +94,8 @@ struct CustomCarouselSnapView: View {
                         
                         Circle()
                             .frame(
-                                width: index == currentItem ? 10 : 6,
-                                height: index == currentItem ? 10 : 6 )
+                                width: index == currentItem ? 8 : 6,
+                                height: index == currentItem ? 8 : 6 )
                             .foregroundColor(Color.theme.TextColor)
                     }
                 }
@@ -104,7 +106,7 @@ struct CustomCarouselSnapView: View {
     
     private func calcOffset() -> CGFloat {
         
-        let minOffset: CGFloat = xOffsetToShift + 15
+        let minOffset: CGFloat = xOffsetToShift + leftPadding
         let maxOffset: CGFloat = minOffset - (totalMovement * CGFloat(media.count-1))
         let currentOffset: CGFloat = minOffset - (totalMovement * CGFloat(currentItem))
         
@@ -124,7 +126,7 @@ struct CustomCarouselSnapView: View {
 struct CustomCarouselSnapView_Previews: PreviewProvider {
     static var previews: some View {
         
-        CustomCarouselSnapView(media: dev.sample_news, spacing: 20, widthOfHiddenCard: 40)
+        CustomCarouselSnapView(media: dev.sample_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: true)
     }
 }
 
