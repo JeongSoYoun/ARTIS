@@ -16,7 +16,7 @@ extension Date {
         let month = time.component(.month, from: self)
         let day = time.component(.day, from: self)
         
-        let timeFormat: String = "\(year)년 \(month)월 \(day)일"
+        let timeFormat: String = "\(year).\(month).\(day)"
         
         return timeFormat
     }

@@ -33,6 +33,7 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         
         HomeView()
+            .preferredColorScheme(.light)
     }
 }
 
@@ -43,17 +44,7 @@ extension HomeView {
 
         if !vm.main_news.isEmpty {
             
-            VStack {
-                
-                ZStack(alignment: .topLeading) {
-                
-                    CustomCarouselSnapView(media: vm.main_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: false)
-                    
-                    HomeHeaderView()
-                        .padding(.top,50)
-                    
-                }
-            }
+            CustomCarouselSnapView(media: vm.main_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: false)
         }
     }
     

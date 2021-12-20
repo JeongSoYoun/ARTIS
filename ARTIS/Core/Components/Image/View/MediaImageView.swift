@@ -9,8 +9,11 @@ import SwiftUI
 
 struct MediaImageView: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @StateObject var vm: ImageViewModel
     @State private var isContentShow: Bool = false
+    @State private var isBookmarkTouch: Bool = false
+    @State private var isHearttouch: Bool = false
     
     private let showsTitle: Bool
     private let media: Media
@@ -45,33 +48,72 @@ struct MediaImageView: View {
                 
                 if showsTitle {
                     
-                    Rectangle()
-                        .frame(
-                            width: UIScreen.main.bounds.width,
-                            height: 120
-                        )
-                        .foregroundColor(Color.black)
-                        .opacity(0.2)
-                        .background(.ultraThinMaterial)
-                        .CustomCornerRadius(20, corners: [.bottomLeft, .bottomRight])
-                        .overlay(
+                    ZStack(alignment: .bottom){
                         
-                            VStack {
-                                
-                                Text(media.title)
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.white)
-                                    .padding()
-                                                                    
-                                Text(media.category)
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.white)
-                            }
+                        Rectangle()
+                            .frame(
+                                width: UIScreen.main.bounds.width,
+                                height: 120
+                            )
+                            .foregroundColor(colorScheme == .light ? Color.white : Color.black)
+                            .opacity(0.2)
+                            .background(.ultraThinMaterial)
+                            .CustomCornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                            .overlay(
                             
-                            ,alignment: .center
-                        )
+                                HStack {
+                                    
+                                    VStack(alignment: .leading) {
+                                        
+                                        Text(media.title)
+                                            .font(.title2)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                                                                            
+                                        Text(media.category)
+                                            .font(.caption)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    HStack {
+                                        
+                                        Image(systemName: isHearttouch ? "heart.fill" : "heart")
+                                            .padding(.horizontal)
+                                            .onTapGesture {
+                                                isHearttouch.toggle()
+                                            }
+                                        
+                                        Image(systemName: isBookmarkTouch ? "bookmark.fill" : "bookmark")
+                                            .onTapGesture {
+                                                isBookmarkTouch.toggle()
+                                            }
+                                    }
+                                    .foregroundColor(colorScheme == .light ? Color.black : Color.white)
+                                    .padding()
+                                }
+                                    .padding()
+                                    .padding(.horizontal)
+                                
+                                
+                                ,alignment: .leading
+                            )
+                        
+                        ZStack(alignment: .topLeading) {
+                            
+                            Rectangle()
+                                .frame(
+                                    width: UIScreen.main.bounds.width,
+                                    height: 140
+                                )
+                                .foregroundColor(Color.clear)
+                            
+                            HomeHeaderView()
+                                .padding(.horizontal)
+                        }
+                    }
                 }
             }
             

@@ -47,7 +47,18 @@ extension NewsRowView {
                             .fontWeight(.semibold)
                             .foregroundColor(Color.theme.TextColor)
                         
+                        Text(news.title)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.theme.TextColor)
+                            .padding(.bottom)
+                        
                         HStack {
+                            
+                            Text("Posted at")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.theme.TextColor)
                             
                             Text(Date(timeIntervalSince1970: news.createdAt).format)
                                 .font(.caption)
@@ -59,11 +70,7 @@ extension NewsRowView {
                     }
                     
                     Spacer()
-                    Text(news.title)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.theme.TextColor)
-                        .padding(.bottom)
+
                 }
                 .padding(.top,10)
                 
