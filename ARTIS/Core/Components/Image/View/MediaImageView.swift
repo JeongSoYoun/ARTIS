@@ -16,13 +16,15 @@ struct MediaImageView: View {
     @State private var isHearttouch: Bool = false
     
     private let showsTitle: Bool
+    private let isCustomImage: Bool
     private let media: Media
     
-    init(media: Media, showsTitle: Bool = false) {
+    init(media: Media, showsTitle: Bool = false, isCustomImage: Bool = false) {
         
         _vm = StateObject(wrappedValue: ImageViewModel(media: media))
         self.media = media
         self.showsTitle = showsTitle
+        self.isCustomImage = isCustomImage
     }
     
     var body: some View {
@@ -34,7 +36,7 @@ struct MediaImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .cornerRadius(isCustomImage ? 0 : 20)
                     .onTapGesture {
                         self.isContentShow = true
                     }
@@ -51,14 +53,9 @@ struct MediaImageView: View {
                     ZStack(alignment: .bottom){
                         
                         Rectangle()
-                            .frame(
-                                width: UIScreen.main.bounds.width,
-                                height: 120
-                            )
                             .foregroundColor(colorScheme == .light ? Color.white : Color.black)
                             .opacity(0.2)
                             .background(.ultraThinMaterial)
-                            .CustomCornerRadius(20, corners: [.bottomLeft, .bottomRight])
                             .overlay(
                             
                                 HStack {
@@ -95,10 +92,13 @@ struct MediaImageView: View {
                                     .padding()
                                 }
                                     .padding()
-                                    .padding(.horizontal)
                                 
                                 
                                 ,alignment: .leading
+                            )
+                            .frame(
+                                width: UIScreen.main.bounds.width,
+                                height: 100
                             )
                         
                         ZStack(alignment: .topLeading) {
@@ -106,7 +106,7 @@ struct MediaImageView: View {
                             Rectangle()
                                 .frame(
                                     width: UIScreen.main.bounds.width,
-                                    height: 140
+                                    height: 120
                                 )
                                 .foregroundColor(Color.clear)
                             
@@ -131,6 +131,6 @@ struct MediaImageView: View {
 struct MainNewsView_Previews: PreviewProvider {
     static var previews: some View {
         
-        MediaImageView(media: dev.news, showsTitle: true)
+        MediaImageView(media: dev.news, showsTitle: true, isCustomImage: true)
     }
 }

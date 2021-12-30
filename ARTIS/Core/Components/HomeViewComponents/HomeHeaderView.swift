@@ -15,20 +15,20 @@ struct HomeHeaderView: View {
         ZStack(alignment: .center) {
             
             Rectangle()
-                .frame(width: 150 , height: 40)
+                .frame(width: 120 , height: 30)
                 .foregroundColor(Color.theme.MainColor)
                 .cornerRadius(10)
             
-            HStack(alignment: .bottom, spacing: 10) {
+            HStack(spacing: 5) {
                 
                 Text("Trending")
-                    .font(.title3)
-                    .fontWeight(.bold)
+                    .font(.headline)
+                    .fontWeight(.semibold)
                     .foregroundColor(Color.theme.background)
                 
                 AnimatedImage(name:"fire.gif")
                     .resizable()
-                    .frame(width: 25, height: 30)
+                    .frame(width: 15, height: 17)
             }
         }
     }

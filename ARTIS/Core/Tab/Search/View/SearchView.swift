@@ -14,6 +14,11 @@ struct SearchView: View {
 //    @StateObject var imageVM: NewsImageViewModel
     @State private var isSearching: Bool = false
     
+    init() {
+        
+        vm.downloadAllMedia()
+    }
+    
     var body: some View {
         
         VStack{
@@ -73,7 +78,6 @@ extension SearchView {
             .onTapGesture {
                 withAnimation(.spring()) {
                     self.isSearching = true
-                    vm.downloadAllMedia()
                 }
             }
             .padding()

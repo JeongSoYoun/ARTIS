@@ -11,26 +11,17 @@ class dbCollectionMap {
     
     static func dbCollection() -> [String] {
         
-        return ["launch","brand","exhibition","magazine"]
-    }
-    
-    static func NewsCollection() -> [String] {
-        
-        return ["launch","brand","exhibition"]
+        return ["news","magazine"]
     }
     
     static func model(collection: String) -> String {
         
         switch collection {
             
-        case "발매정보":
-            return "launch"
-        case "브랜드":
-            return "brand"
-        case "전시회":
-            return "exhibition"
-        default:
+        case "메거진":
             return "magazine"
+        default:
+            return "news"
         }
     }
     

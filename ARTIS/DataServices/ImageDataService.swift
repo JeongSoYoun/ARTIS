@@ -16,13 +16,13 @@ class ImageDataService {
     
     private let cache = LocalFileManager.instance
     private let id: String
-    private let category: String
+    private let collection: String
 
 
     init(media: Media) {
         
         self.id = media.id
-        self.category = dbCollectionMap.model(collection: media.category)
+        self.collection = dbCollectionMap.model(collection: media.category)
 
         downloadCoverImage()
     }
@@ -93,7 +93,7 @@ class ImageDataService {
     private func imageRef(of: String) -> StorageReference {
         
         let storageRef = Storage.storage().reference()
-        let imageRef = storageRef.child("\(category)/\(id)/\(of)")
+        let imageRef = storageRef.child("\(collection)/\(id)/\(of)")
         
         return imageRef
     }

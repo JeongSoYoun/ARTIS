@@ -15,6 +15,8 @@ struct CustomCarouselSnapView: View {
     private let media: [Media]
     private let showsIndicators: Bool
     private let showsTitle: Bool
+    private let isAnimation: Bool
+    private let isCustomImage: Bool
     private let spacing: CGFloat
     private let widthOfHiddenCard: CGFloat
     private let numberOfMedia: CGFloat
@@ -25,11 +27,13 @@ struct CustomCarouselSnapView: View {
     private let leftPadding: CGFloat
     private let totalMovement: CGFloat
     
-    init(media: [Media], spacing: CGFloat, widthOfHiddenCard: CGFloat, leftPadding: CGFloat, showsIndicators: Bool = true, showsTitle: Bool = true) {
+    init(media: [Media], spacing: CGFloat, widthOfHiddenCard: CGFloat, leftPadding: CGFloat, showsIndicators: Bool = true, showsTitle: Bool = true, isAnimation: Bool = false, isCustomImage: Bool = false) {
         
         self.media = media
         self.showsIndicators = showsIndicators
         self.showsTitle = showsTitle
+        self.isAnimation = isAnimation
+        self.isCustomImage = isCustomImage
         self.spacing = spacing
         self.widthOfHiddenCard = widthOfHiddenCard
         self.numberOfMedia = CGFloat(media.count)
@@ -49,10 +53,10 @@ struct CustomCarouselSnapView: View {
                 
                 ForEach(0 ..< media.count, id: \.self) { (index) in
                     
-                    MediaImageView(media: media[index], showsTitle: showsTitle)
+                    MediaImageView(media: media[index], showsTitle: showsTitle, isCustomImage: isCustomImage)
                         .frame(
                             width: cardWidth,
-                            height: index == currentItem ? cardWidth + 100 : cardWidth + 50
+                            height: index == currentItem ? cardWidth + 50 : cardWidth + 30
                         )
                         .opacity(index == currentItem ? 1.0 : 0.7)
                         .offset(x: calcOffset(), y: 0)
@@ -81,7 +85,7 @@ struct CustomCarouselSnapView: View {
                                     }
                                 }
                         )
-                        .animation(.default, value: UUID())
+                        .animation(isAnimation ? .easeInOut : .none, value: UUID())
                 }
             }
             .frame(maxWidth: UIScreen.main.bounds.width)
@@ -126,7 +130,7 @@ struct CustomCarouselSnapView: View {
 struct CustomCarouselSnapView_Previews: PreviewProvider {
     static var previews: some View {
         
-        CustomCarouselSnapView(media: dev.sample_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: true)
+        CustomCarouselSnapView(media: dev.sample_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: true, isCustomImage: true)
     }
 }
 

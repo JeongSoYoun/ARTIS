@@ -10,6 +10,7 @@ import SwiftUI
 struct NewsRowView: View {
     
     private let news: Media
+    @State private var selection: String? = nil
     
     init(news: Media) {
         
@@ -19,6 +20,19 @@ struct NewsRowView: View {
     var body: some View {
         
         newsView
+            .onTapGesture {
+                self.selection = news.id
+            }
+            .background(
+                
+                NavigationLink(tag: news.id, selection: $selection, destination: {
+                    ContentsView(media: news)
+                    
+                }, label: {
+                    EmptyView()
+                })
+                
+            )
     }
 }
 

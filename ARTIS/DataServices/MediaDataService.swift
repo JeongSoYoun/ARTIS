@@ -18,14 +18,9 @@ class MediaDataService {
     @Published var launchInfo: LaunchInfo? = nil
     @Published var brandInfo: BrandInfo? = nil
     
-    private let dbCollections: [String]
-    private let NewsCollections: [String]
+    private let db: [String] = dbCollectionMap.dbCollection()
     
-    init() {
-        
-        self.dbCollections = dbCollectionMap.dbCollection()
-        self.NewsCollections = dbCollectionMap.NewsCollection()
-    }
+    init() {}
     
     func donwloadAllMedia() {
         
@@ -45,7 +40,7 @@ class MediaDataService {
     
     private func getAllMedia() {
         
-        for collection in dbCollections {
+        for collection in db {
             
             NetworkManager.downloadMediaData(collection: collection) { media in
                 
@@ -56,12 +51,9 @@ class MediaDataService {
     
     private func getAllNews() {
         
-        for collection in NewsCollections {
+        NetworkManager.downloadMediaData(collection: "news") { news in
             
-            NetworkManager.downloadMediaData(collection: collection) { news in
-                
-                self.all_news.append(contentsOf: news)
-            }
+            self.all_news.append(contentsOf: news)
         }
     }
     

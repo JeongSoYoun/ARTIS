@@ -15,16 +15,13 @@ struct HomeView: View {
             VStack {
                 
                 mainPageView
-                
-                itemBarView
-                
-                latestNewsView
 
+                latestNewsView
             }
         }
-        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .navigationTitle("")
+        .ignoresSafeArea()
     }
 }
 
@@ -44,7 +41,7 @@ extension HomeView {
 
         if !vm.main_news.isEmpty {
             
-            CustomCarouselSnapView(media: vm.main_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: false)
+            CustomCarouselSnapView(media: vm.main_news, spacing: 0, widthOfHiddenCard: 0, leftPadding: 0, showsIndicators: false, isAnimation: false, isCustomImage: true)
         }
     }
     
@@ -68,18 +65,30 @@ extension HomeView {
         
         if !vm.all_news.isEmpty {
             
-            let news = vm.all_news.filter{$0.category == selected}
-            
-            VStack(alignment: .leading) {
+            VStack(alignment: .trailing) {
                 
-                switch selected {
-
-                case "발매정보":
-                    NewsCollectionRowView(news: news)
-                case "브랜드":
-                    NewsCollectionRowView(news: news)
-                default: // "전시회"
-                    NewsCollectionRowView(news: news)
+                HStack {
+                    
+                    Text("뉴스")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.theme.TextColor)
+                    
+                    Spacer()
+                    
+                    Text("더 보기")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.theme.TextColor)
+                    
+                    Image(systemName: "chevron.right")
+                }
+                .padding()
+                .padding(.top)
+                          
+                ForEach(0 ..< 4, id: \.self) { index in
+                    
+                    NewsRowView(news: vm.all_news[index])
                 }
             }
         }
